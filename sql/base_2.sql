@@ -114,20 +114,6 @@ CREATE TABLE EF_types_prets (
     motif TEXT
 );
 
-CREATE TABLE EF_mouvement_status_contrat (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_contrat_pret INT NOT NULL,
-    id_status_contrat INT NOT NULL,
-    date_mouvement DATE NOT NULL,
-    FOREIGN KEY (id_contrat_pret) REFERENCES EF_contrats_prets(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_status_contrat) REFERENCES EF_status_contrat(id) ON DELETE CASCADE
-);
-
-CREATE TABLE EF_status_contrat (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    libelle VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE EF_contrats_prets (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_client INT NOT NULL,
@@ -143,6 +129,21 @@ CREATE TABLE EF_contrats_prets (
     FOREIGN KEY (id_type_remboursement) REFERENCES EF_types_remboursements(id),
     FOREIGN KEY (id_type_pret) REFERENCES EF_types_prets(id)
 );
+
+CREATE TABLE EF_status_contrat (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    libelle VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE EF_mouvement_status_contrat (
+     id INT PRIMARY KEY AUTO_INCREMENT,
+     id_contrat_pret INT NOT NULL,
+     id_status_contrat INT NOT NULL,
+     date_mouvement DATE NOT NULL,
+     FOREIGN KEY (id_contrat_pret) REFERENCES EF_contrats_prets(id) ON DELETE CASCADE,
+     FOREIGN KEY (id_status_contrat) REFERENCES EF_status_contrat(id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE EF_prets_clients (
     id INT PRIMARY KEY AUTO_INCREMENT,

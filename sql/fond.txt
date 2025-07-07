@@ -27,7 +27,6 @@ FondInvestiParClient :
     - montant_investi
     - date_investissement
 
-
 RetourFond :
     - id
     - id_fond_investi
