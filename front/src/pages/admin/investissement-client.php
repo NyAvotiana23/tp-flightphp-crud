@@ -101,3 +101,4 @@ include("../section/navbar.php");
     </section>
 </div>
 </body>
+<script type="module" src='../../api/investissement.js'></script>
