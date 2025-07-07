@@ -1,8 +1,3 @@
-
-Type Fond :
-    - id
-    - commentaire
-
 Produit_investi :
     - id
     - nom_produit

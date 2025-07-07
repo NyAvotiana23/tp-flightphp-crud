@@ -2,8 +2,7 @@ Connexion :
     - Admin : numero_identification et mot_de_passe
 
 Admin :
-    - Consulter le solde
-
+    ETAPE 1:
     - Faire un investissement :
         - choisir produit à investir
             => Investir produit : (input : id_client, id_investi,montant, date, durre)
@@ -49,56 +48,125 @@ Admin :
                 _ taux_revenu >= type_pret.taux_revenues_min &&
                 taux_revenu <= type_pret.taux_revenues_max
 
+
     - Approbation contrat :
-            => Input (id_contrat, date)
         choisir contrat :
+            => Input (id_contrat, date, delai_remboursement)
             if accepter contrat :
-                => Ajout pret :
+                Begin Transaction :
+                    - Ajout MouvStatusContrat :
+                        status_contrat : valider
+                        date : date == null ? aujourd'hui : date
+
+                    - Ajout pret :
+                        * montant_pret = contrat.montant_pret
+                        * nombre_periode = (contrat.durre_retour_pret / 12) * contrat.type_rembourssement.repetition_annuel
+                        * due_periodique_avec_interet = contrat.echeance
+                        * due_periodique_assurance = (taux_assurance / type_rembourssement.repetition_annuel) * contrat.montant_pret
+                        * montant_finale_rembourser = due_periodique_avec_interet * nombre_periode
+                        * date_debut_empreint = date
+                        * date_fin_empreint = date_debut_empreint + contrat.durre_retour_pret
+
+                    - Ajout MouvementCompteBancaireClient :
+                                            * type_mouvement => Pret
+                                            * montant =  + montant investi
+                                            * date_mouvement = date ==  null ? aujourd'hui : date
+
+                    - Ajout MouvementCompteBancaireEtablissement :
+                            * TypeMouvementEF => Sortis Pret
+                            * montant =  - montant investi
+                            * date_mouvement = date ==  null ? aujourd'hui : date
+                    C = contrat.montant_pret
+                    - for i = 1 => nombre_periode :
+                        - Ajout MouvementCompteBancaireClient :
+                            * type_mouvement => Rembourssement Pret
+                            * montant =  - due_periodique_avec_interet
+                            * date_mouvement.mois = date.mois + i * (12 / contrat.type_rembourssement.repetition_annuel) + delai_remboursement
+                        - Ajout MouvementCompteBancaireEtablissement :
+                            * TypeMouvementEF => Sortis Pret
+                            * montant =  + due_periodique_avec_interet
+                            * date_mouvement.mois = date.mois + i * (12 / contrat.type_rembourssement.repetition_annuel) + delai_remboursement
+                        - Ajout RetourPret :
+                               * index_period = i
+                               * date_retour = date.mois + i * (12 / contrat.type_rembourssement.repetition_annuel) + delai_remboursement
+                               * total_due = contrat.echeance + due_peridique_assurance
+                               * interet = C * (contrat.taux_revenu / contrat.type_rembourssement.repetition_annuel)
+                               * Capital remboursé = contrat.echeance - interet
+                               * Nouveau capital restant dû = C - Capital remboursé
+
+                        C = Nouveau capital restant dû
+                    fin for
+           else :
+                - Ajout MouvStatusContrat :
+                    status_contrat : valider
+
+    ETAPE 3:
+    - Liste Client => Fiche Client (info client
+                                    + MouvementCompteBancaireClient
+                                    + MouvementActiviteClient)
+
+    - Liste PretClient / FondInvestiParClient :
+        => Filtre :
+            Par TypePret /  Produit_investi,
+            Date de creation
+
+    - Tableau et graphe des intérêt par pret par EF :
+        - Afficher les graphes interet pour tous les prets de l'EF:
+            => Input (date_min, date_max)
+            for i entre date_min et date_max
+                liste_interet[i] <- somme des interets des RetourPret au mois i
+            retourne liste_interets
+
+        - Afficher les graphes interets pour un seul prets:
+            => Input (contrat, date_min, date_max)
+            for i entre date_min et date_max
+                liste_interet[i] <- somme des interets des RetourPret dont le id est id_pretclient au mois i
+            retourne liste_interets
+
+    ETAPE 4:
+        - Simulation d'un pret via contrat:
+            Avant valider
+            => Input (contrat, date_min, date_max)
+            A partir d'ici, tout est simulation:
+                - Ajout pret :
                     * montant_pret = contrat.montant_pret
                     * nombre_periode = (contrat.durre_retour_pret / 12) * contrat.type_rembourssement.repetition_annuel
                     * due_periodique_avec_interet = contrat.echeance
+                    * due_periodique_assurance = (taux_assurance / type_rembourssement.repetition_annuel) * contrat.montant_pret
                     * montant_finale_rembourser = due_periodique_avec_interet * nombre_periode
                     * date_debut_empreint = date
                     * date_fin_empreint = date_debut_empreint + contrat.durre_retour_pret
 
-                - Ajout MouvementCompteBancaireClient :
-                                        * type_mouvement => Pret
-                                        * montant =  + montant investi
-                                        * date_mouvement = date ==  null ? aujourd'hui : date
-
-                - Ajout MouvementCompteBancaireEtablissement :
-                        * TypeMouvementEF => Sortis Pret
-                        * montant =  - montant investi
-                        * date_mouvement = date ==  null ? aujourd'hui : date
                 C = contrat.montant_pret
                 - for i = 1 => nombre_periode :
-                    - Ajout MouvementCompteBancaireClient :
-                        * type_mouvement => Rembourssement Pret
-                        * montant =  - due_periodique_avec_interet
-                        * date_mouvement = date + i * contrat.type_rembourssement.periode
-                    - Ajout MouvementCompteBancaireEtablissement :
-                        * TypeMouvementEF => Sortis Pret
-                        * montant =  + due_periodique_avec_interet
-                        * date_mouvement = date + i * contrat.type_rembourssement.periode
-
                     - Ajout RetourPret :
                            * index_period = i
-                           * date_retour = date + i * contrat.type_rembourssement.periode
-                           * echeance = contrat.echeance
                            * interet = C * (contrat.taux_revenu / contrat.type_rembourssement.repetition_annuel)
                            * Capital remboursé = contrat.echeance - interet
                            * Nouveau capital restant dû = C - Capital remboursé
-
                     C = Nouveau capital restant dû
                 fin for
-            else :
-                 AJout StatusDemandePret :
-                                * status = refuser_client
-                                * date_reponse = date
+                for i entre date_min et date_max
+                    liste_interet[i] <- somme des interets des RetourPret dont le id est id_pretclient au mois i
+                retourne [
+                    liste_interet,
+                    pret
+                ]
 
-    - Liste Pret / Fond : filtre rembourser ou non
+        - Liste contrat non Valider :
+            verifier si le dernier id_statut_contrat == 2
 
-Admin :
-    - ajouter client
-    - rembourser fond
-    - accepter pret
+        - génerer pdf pour client
+
+        -
+
+
+
+
+    EXTRA
+    - Consulter le solde :
+        MouvementCompteBancaireEtablissement
+
+    - Fiche PretClient / FondInvestiParClient :
+        PretClient: Join contrat Join Retour Pret
+        Fond : Produit_investi
