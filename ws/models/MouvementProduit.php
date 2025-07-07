@@ -2,8 +2,8 @@
 
 require_once 'BaseModel.php';
 
-class MouvementProduit extends BaseModel {
+class MouvementPartenaire extends BaseModel {
     public function __construct() {
-        parent::__construct('mouvements_produits');
+        parent::__construct('EF_mouvements_partenaire');
     }
 }

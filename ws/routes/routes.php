@@ -14,7 +14,7 @@ require_once __DIR__ . '/../controllers/PretClientController.php';
 require_once __DIR__ . '/../controllers/RemboursementPretController.php';
 require_once __DIR__ . '/../controllers/TypeFondController.php';
 require_once __DIR__ . '/../controllers/ProduitInvestissementController.php';
-require_once __DIR__ . '/../controllers/MouvementProduitController.php';
+require_once __DIR__ . '/../controllers/MouvementPartenaireController.php';
 require_once __DIR__ . '/../controllers/FondInvestiClientController.php';
 require_once __DIR__ . '/../controllers/RetraitFondController.php';
 require_once __DIR__ . '/../controllers/EtudiantController.php';
@@ -118,11 +118,11 @@ Flight::route('PUT /produits-investissements/@id', ['ProduitInvestissementContro
 Flight::route('DELETE /produits-investissements/@id', ['ProduitInvestissementController', 'delete']);
 
 // Mouvements produits
-Flight::route('GET /mouvements-produits', ['MouvementProduitController', 'getAll']);
-Flight::route('GET /mouvements-produits/@id', ['MouvementProduitController', 'getById']);
-Flight::route('POST /mouvements-produits', ['MouvementProduitController', 'create']);
-Flight::route('PUT /mouvements-produits/@id', ['MouvementProduitController', 'update']);
-Flight::route('DELETE /mouvements-produits/@id', ['MouvementProduitController', 'delete']);
+Flight::route('GET /mouvements-produits', ['MouvementPartenaireController', 'getAll']);
+Flight::route('GET /mouvements-produits/@id', ['MouvementPartenaireController', 'getById']);
+Flight::route('POST /mouvements-produits', ['MouvementPartenaireController', 'create']);
+Flight::route('PUT /mouvements-produits/@id', ['MouvementPartenaireController', 'update']);
+Flight::route('DELETE /mouvements-produits/@id', ['MouvementPartenaireController', 'delete']);
 
 // Fonds investis clients
 Flight::route('GET /fonds-investis-clients', ['FondInvestiClientController', 'getAll']);
