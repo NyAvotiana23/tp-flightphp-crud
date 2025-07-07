@@ -1,6 +1,3 @@
-
-
-
 Type Rembourssement : (mensuel, trimestriel, annuel)
     - id
     - nom
@@ -13,9 +10,20 @@ Contrat_pret :
     - uuid
     - id_type_pret
     - taux_revenues (annuel)
+    - taux_assurence
     - durre_retour_pret (mois)
     - montant_pret
     - echeance
+
+MouvStatusContrat:
+    id
+    id_contrat_pret
+    id_statut_contrat
+    date
+
+StatutContrat : (en_attente, valider, refuser)
+    id
+    libelle
 
 Type Pret :
     - id
@@ -29,7 +37,8 @@ PretClient :
     - montant_pret
     - montant_finale_rembourser (Calculer dans contrat)
     - nombre_periode (Calculer dans contrat)
-    - due_periodique_avec_interet (Calculer dans contrat, mensualite ou autre)
+    - due_periodique_interet (Calculer dans contrat, mensualite ou autre)
+    - due_periodique_assurance
     - date_debut_empreint
     - date_fin_empreint
 
@@ -38,7 +47,7 @@ RetourPret :
     - id_pret_client
     - index_period
     - date_retour
-    - echeance (Amortissement)
+    - total_due (Amortissement)
     - interet
     - Capital remboursé
     - Nouveau capital restant dû

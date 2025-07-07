@@ -1,98 +1,129 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Test Insertion d'Entités</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    section { margin-bottom: 40px; border: 1px solid #ccc; padding: 15px; }
-    h2 { margin-top: 0; }
-    input, button, select { margin: 5px; padding: 5px; }
-    label { display: block; margin-top: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Gestion des étudiants</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input, button { margin: 5px; padding: 5px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
 </head>
 <body>
 
-  <h1>Formulaires d'Insertion (Test)</h1>
+<h1>Gestion des étudiants</h1>
 
-  <!-- Client -->
-  <section>
-    <h2>Client</h2>
-    <input type="text" id="client_numero" placeholder="Numéro Client" required />
-    <input type="password" id="client_mdp" placeholder="Mot de passe" required />
-    <input type="text" id="client_nom" placeholder="Nom" required />
-    <input type="text" id="client_prenom" placeholder="Prénom" required />
-    <input type="date" id="client_naissance" placeholder="Date de naissance" required />
-    <input type="email" id="client_email" placeholder="Email" required />
-    <input type="text" id="client_adresse" placeholder="Adresse" />
-    <input type="text" id="client_tel" placeholder="Téléphone" />
-    <button onclick="submitClient()">Créer Client</button>
-  </section>
+<div>
+    <input type="hidden" id="id">
+    <input type="text" id="nom" placeholder="Nom">
+    <input type="text" id="prenom" placeholder="Prénom">
+    <input type="email" id="email" placeholder="Email">
+    <input type="number" id="age" placeholder="Âge">
+    <button onclick="ajouterOuModifier()">Ajouter / Modifier</button>
+</div>
 
-  <!-- Type Contrat Activité -->
-  <section>
-    <h2>Type de Contrat d'Activité</h2>
-    <input type="text" id="type_contrat_nom" placeholder="Nom Type de Contrat" required />
-    <button onclick="submitTypeContrat()">Créer Type</button>
-  </section>
+<table id="table-etudiants">
+    <thead>
 
-  <!-- Activité Client -->
-  <section>
-    <h2>Activité Client</h2>
-    <input type="text" id="activite_nom" placeholder="Nom Activité" required />
-    <input type="number" id="activite_client_id" placeholder="ID Client" required />
-    <input type="number" id="activite_type_id" placeholder="ID Type Contrat" required />
-    <button onclick="submitActivite()">Créer Activité Client</button>
-  </section>
+    <tr>
+        <th>ID</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Âge</th><th>Actions</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-  <script>
-    const API_BASE = "http://localhost/tp-flightphp-crud-MVC/tp-flightphp-crud/ws";
+<script>
+    const apiBase = "http://localhost/Tp%20Final%20S4/tp-flightphp-crud/ws";
 
     function ajax(method, url, data, callback) {
-      const xhr = new XMLHttpRequest();
-      xhr.open(method, API_BASE + url, true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          alert("Succès !");
-          callback && callback(JSON.parse(xhr.responseText));
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, apiBase + url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                callback(JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.send(data);
+    }
+
+    function chargerEtudiants() {
+        ajax("GET", "/etudiants", [], (data) => {
+            const tbody = document.querySelector("#table-etudiants tbody");
+            tbody.innerHTML = "";
+            data.forEach(e => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td>${e.id}</td>
+            <td>${e.nom}</td>
+            <td>${e.prenom}</td>
+            <td>${e.email}</td>
+            <td>${e.age}</td>
+            <td>
+                <button onclick='remplirFormulaire(${JSON.stringify(e)})'>✏️</button>
+                <button onclick='supprimerEtudiant(${e.id})'>🗑️</button>
+            </td>
+          `;
+                tbody.appendChild(tr);
+            });
+        });
+    }
+
+    function ajouterOuModifier() {
+        const id = document.getElementById("id").value;
+        const nom = document.getElementById("nom").value;
+        const prenom = document.getElementById("prenom").value;
+        const email = document.getElementById("email").value;
+        const age = document.getElementById("age").value;
+
+        const data = {
+            nom : nom,
+            prenom : prenom,
+            email : email,
+            age : age
+        };
+
+        if (id) {
+            ajax("PUT", `/etudiants/${id}`, JSON.stringify(data), () => {
+                resetForm();
+                chargerEtudiants();
+            });
         } else {
-          alert("Erreur: " + xhr.status + "\n" + xhr.responseText);
+            ajax("POST", "/etudiants", JSON.stringify(data), () => {
+                resetForm();
+                chargerEtudiants();
+            });
         }
-      };
-      xhr.onerror = () => alert("Erreur réseau !");
-      xhr.send(JSON.stringify(data));
     }
 
-    function submitClient() {
-      const data = {
-        numero_client: document.getElementById("client_numero").value,
-        mot_de_passe: document.getElementById("client_mdp").value,
-        nom: document.getElementById("client_nom").value,
-        prenom: document.getElementById("client_prenom").value,
-        date_naissance: document.getElementById("client_naissance").value,
-        email: document.getElementById("client_email").value,
-        adresse: document.getElementById("client_adresse").value,
-        telephone: document.getElementById("client_tel").value
-      };
-      ajax("POST", "/clients", data, () => console.log("Client ajouté"));
+    function remplirFormulaire(e) {
+        document.getElementById("id").value = e.id;
+        document.getElementById("nom").value = e.nom;
+        document.getElementById("prenom").value = e.prenom;
+        document.getElementById("email").value = e.email;
+        document.getElementById("age").value = e.age;
     }
 
-    function submitTypeContrat() {
-      const data = { nom: document.getElementById("type_contrat_nom").value };
-      ajax("POST", "/types-contrats-activite", data, () => console.log("Type de contrat ajouté"));
+    function supprimerEtudiant(id) {
+        if (confirm("Supprimer cet étudiant ?")) {
+            ajax("DELETE", `/etudiants/${id}`, null, () => {
+                chargerEtudiants();
+            });
+        }
     }
 
-    function submitActivite() {
-      const data = {
-        nom_activite: document.getElementById("activite_nom").value,
-        client_id: parseInt(document.getElementById("activite_client_id").value),
-        type_contrat_id: parseInt(document.getElementById("activite_type_id").value)
-      };
-      ajax("POST", "/activites-clients", data, () => console.log("Activité client ajoutée"));
+    function resetForm() {
+        document.getElementById("id").value = "";
+        document.getElementById("nom").value = "";
+        document.getElementById("prenom").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("age").value = "";
     }
-  </script>
+
+    chargerEtudiants();
+</script>
 
 </body>
 </html>
