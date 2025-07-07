@@ -111,7 +111,7 @@ include("../section/navbar.php");
             document.getElementById('finalBalance').textContent = `${finalBalance.toFixed(2)} EUR`;
         }
 
-        
+
 
         // Initial load
         loadTransactions();

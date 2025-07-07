@@ -602,6 +602,10 @@ video {
   z-index: 50;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -741,6 +745,10 @@ video {
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -977,6 +985,12 @@ video {
   letter-spacing: 0.01em;
 }
 
+.text-custom-lg {
+  font-size: 1.875rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1075,6 +1089,10 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.duration-200 {
+  transition-duration: 200ms;
 }
 
 .ease-in-out {

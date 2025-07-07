@@ -10,7 +10,7 @@
             </li>
             <li><a href="pret.php" class="hover:text-custom-purple-secondary text-base">Prêts</a></li>
             <li><a href="investissement-client.php" class="hover:text-custom-purple-secondary text-base">Investissements</a></li>
-            <li><a href="#" class="hover:text-custom-purple-secondary text-base">Rapports</a></li>
+            <li><a href="rapport.php" class="hover:text-custom-purple-secondary text-base">Rapports</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Paramètres</a></li>
             <li><a href="client.php" class="hover:text-custom-purple-secondary text-base">Clients</a></li>
         </ul>
