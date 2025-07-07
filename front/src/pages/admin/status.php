@@ -111,75 +111,17 @@ include("../section/navbar.php");
             document.getElementById('finalBalance').textContent = `${finalBalance.toFixed(2)} EUR`;
         }
 
-        // Handle loan form submission
-        document.getElementById('loanForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const amount = parseFloat(document.getElementById('loanAmount').value);
-            const description = document.getElementById('loanDescription').value;
-            const client = loadClientData();
-            client.transactions.push({
-                date: document.getElementById('transactionDate').value,
-                type: 'loan',
-                amount: amount,
-                description: description || 'Prêt'
-            });
-            client.balance += amount;
-            localStorage.setItem('client', JSON.stringify(client));
-            loadTransactions();
-            closeLoanModal();
-        });
-
-        // Handle investment form submission
-        document.getElementById('investmentForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const amount = parseFloat(document.getElementById('investmentAmount').value);
-            const description = document.getElementById('investmentDescription').value;
-            const client = loadClientData();
-            if (amount <= client.balance) {
-                client.transactions.push({
-                    date: document.getElementById('transactionDate').value,
-                    type: 'investment',
-                    amount: amount,
-                    description: description || 'Investissement'
-                });
-                client.balance -= amount;
-                localStorage.setItem('client', JSON.stringify(client));
-                loadTransactions();
-            } else {
-                alert('Solde insuffisant pour cet investissement.');
-            }
-            closeInvestmentModal();
-        });
-
-        // Modal controls
-        function openLoanModal() {
-            document.getElementById('loanModal').classList.remove('hidden');
-        }
-
-        function closeLoanModal() {
-            document.getElementById('loanModal').classList.add('hidden');
-            document.getElementById('loanForm').reset();
-        }
-
-        function openInvestmentModal() {
-            document.getElementById('investmentModal').classList.remove('hidden');
-        }
-
-        function closeInvestmentModal() {
-            document.getElementById('investmentModal').classList.add('hidden');
-            document.getElementById('investmentForm').reset();
-        }
-
-        // Filter transactions on change
-        document.getElementById('movementType').addEventListener('change', (e) => {
-            loadTransactions(e.target.value, document.getElementById('transactionDate').value);
-        });
-
-        document.getElementById('transactionDate').addEventListener('change', (e) => {
-            loadTransactions(document.getElementById('movementType').value, e.target.value);
-        });
+        
 
         // Initial load
         loadTransactions();
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+        });
     </script>
 </body>
