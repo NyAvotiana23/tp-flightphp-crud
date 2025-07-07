@@ -19,6 +19,7 @@ require_once __DIR__ . '/../controllers/FondInvestiClientController.php';
 require_once __DIR__ . '/../controllers/RetraitFondController.php';
 require_once __DIR__ . '/../controllers/EtudiantController.php';
 require_once __DIR__ . '/../controllers/StatusContratController.php';
+require_once __DIR__ . '/../controllers/MouvementStatusContratController.php';
 
 // Clients
 Flight::route('GET /clients', ['ClientController', 'getAll']);
@@ -83,19 +84,14 @@ Flight::route('POST /types-prets', ['TypePretController', 'create']);
 Flight::route('PUT /types-prets/@id', ['TypePretController', 'update']);
 Flight::route('DELETE /types-prets/@id', ['TypePretController', 'delete']);
 
-// Statut de contrat
-Flight::route('GET /status-contrats/@id', ['StatusContratController', 'getById']);
-Flight::route('GET /status-contrats', ['StatusContratController', 'getAll']);
-Flight::route('POST /status-contrats', ['StatusContratController', 'create']);
-Flight::route('PUT /status-contrats/@id', ['StatusContratController', 'update']);
-Flight::route('DELETE /status-contrats/@id', ['StatusContratController', 'delete']);
-
 // Contrats de prêt
 Flight::route('GET /contrats-prets', ['ContratPretController', 'getAll']);
 Flight::route('GET /contrats-prets/@id', ['ContratPretController', 'getById']);
 Flight::route('POST /contrats-prets', ['ContratPretController', 'create']);
 Flight::route('PUT /contrats-prets/@id', ['ContratPretController', 'update']);
 Flight::route('DELETE /contrats-prets/@id', ['ContratPretController', 'delete']);
+Flight::route('POST /contrats-prets/@id/approve', ['ContratPretController', 'approve']);
+Flight::route('POST /contrats-prets/@id/reject', ['ContratPretController', 'reject']);
 
 // Prêts clients
 Flight::route('GET /prets-clients', ['PretClientController', 'getAll']);
@@ -146,12 +142,13 @@ Flight::route('POST /retraits-fonds', ['RetraitFondController', 'create']);
 Flight::route('PUT /retraits-fonds/@id', ['RetraitFondController', 'update']);
 Flight::route('DELETE /retraits-fonds/@id', ['RetraitFondController', 'delete']);
 
+// Etudiants
 Flight::route('GET /etudiants', ['EtudiantController', 'getAll']);
 Flight::route('GET /etudiants/@id', ['EtudiantController', 'getById']);
 Flight::route('POST /etudiants', ['EtudiantController', 'create']);
 Flight::route('PUT /etudiants/@id', ['EtudiantController', 'update']);
 Flight::route('DELETE /etudiants/@id', ['EtudiantController', 'delete']);
 
-
+// Additional routes
 Flight::route('POST /pret-clients/filter', ['PretClientController', 'filterLoans']);
 Flight::route('GET /pret-clients/@id/details', ['PretClientController', 'getLoanDetails']);

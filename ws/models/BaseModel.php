@@ -10,6 +10,8 @@ class BaseModel {
         $this->db = getDB(); 
     }
 
+    public function db() { return $this->db; }
+
     public function getAll() {
         $stmt = $this->db->query("SELECT * FROM " . $this->tableName);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
