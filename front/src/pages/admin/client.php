@@ -94,49 +94,5 @@ include("../section/navbar.php");
     </div>
 </div>
 
-<script>
-    function showClientDetails(clientId) {
-        // Mock data for demonstration
-        const clientData = {
-            id: clientId,
-            numeroClient: 'C001',
-            nom: 'Dupont',
-            prenom: 'Jean',
-            dateDeNaissance: '01/01/1980',
-            email: 'jean.dupont@example.com',
-            adresse: '123 Rue Exemple, Paris',
-            contact: '+33 123 456 789'
-        };
-
-        document.getElementById('clientId').textContent = clientData.id;
-        document.getElementById('clientNumberDetail').textContent = clientData.numeroClient;
-        document.getElementById('clientLastName').textContent = clientData.nom;
-        document.getElementById('clientFirstName').textContent = clientData.prenom;
-        document.getElementById('clientDOB').textContent = clientData.dateDeNaissance;
-        document.getElementById('clientEmail').textContent = clientData.email;
-        document.getElementById('clientAddress').textContent = clientData.adresse;
-        document.getElementById('clientContact').textContent = clientData.contact;
-        document.getElementById('modalClientNumber').value = clientData.numeroClient;
-
-        document.getElementById('clientModal').classList.remove('hidden');
-    }
-    function onSubmitClient (event) {
-        event.preventDefault();
-
-        alert("Connexion en tant que client effectuée avec succès !");
-        window.location.href = "status.php";
-    }
-
-    function closeClientDetails() {
-        document.getElementById('clientModal').classList.add('hidden');
-    }
-    window.addEventListener('scroll', () => {
-        const navbar = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            navbar.style.transform = 'translateY(0)';
-        }
-    });
-</script>
+<script type='module' src='../../api/client.js'></script>
 </body>
