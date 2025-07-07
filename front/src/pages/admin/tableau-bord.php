@@ -91,5 +91,6 @@ include("../section/head.php");
             navbar.style.transform = 'translateY(0)';
         }
     });
+
 </script>
 </body>
