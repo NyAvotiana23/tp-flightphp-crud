@@ -1,4 +1,4 @@
-const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
+const apiBase = "http://localhost/Tp%20Final%20S4/tp-flightphp-crud/ws";
 
 export function ajax(method, url, data, callback, errorCallback) {
     const xhr = new XMLHttpRequest();
