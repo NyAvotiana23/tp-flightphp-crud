@@ -2,6 +2,31 @@ DROP DATABASE EF;
 CREATE DATABASE EF;
 USE EF;
 
+DROP TABLE IF EXISTS EF_retraits_fonds;
+DROP TABLE IF EXISTS EF_fonds_investis_clients;
+DROP TABLE IF EXISTS EF_mouvements_partenaire;
+DROP TABLE IF EXISTS EF_partenaire;
+DROP TABLE IF EXISTS EF_type_partenaire;
+
+DROP TABLE IF EXISTS EF_remboursements_prets;
+DROP TABLE IF EXISTS EF_prets_clients;
+DROP TABLE IF EXISTS EF_mouvement_status_contrat;
+DROP TABLE IF EXISTS EF_contrats_prets;
+DROP TABLE IF EXISTS EF_status_contrat;
+DROP TABLE IF EXISTS EF_types_prets;
+DROP TABLE IF EXISTS EF_types_remboursements;
+
+DROP TABLE IF EXISTS EF_mouvements_bancaires_etablissements;
+DROP TABLE IF EXISTS EF_types_mouvements_etablissements;
+DROP TABLE IF EXISTS EF_etablissements_financiers;
+
+DROP TABLE IF EXISTS EF_mouvements_bancaires_clients;
+DROP TABLE IF EXISTS EF_types_mouvements_bancaires;
+DROP TABLE IF EXISTS EF_activites_clients;
+DROP TABLE IF EXISTS EF_types_contrats_activite;
+
+DROP TABLE IF EXISTS EF_clients;
+
 CREATE TABLE EF_clients (
     id INT PRIMARY KEY AUTO_INCREMENT,
     numero_client VARCHAR(20) UNIQUE NOT NULL,
@@ -11,17 +36,13 @@ CREATE TABLE EF_clients (
     date_naissance DATE NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     adresse TEXT,
-    telephone VARCHAR(20),
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    statut_actif BOOLEAN DEFAULT TRUE
+    telephone VARCHAR(20)
 );
 
 CREATE TABLE EF_types_contrats_activite (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom_type_contrat VARCHAR(100) NOT NULL,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    description TEXT
 );
 
 CREATE TABLE EF_activites_clients (
@@ -32,8 +53,6 @@ CREATE TABLE EF_activites_clients (
     revenu_net_mensuel DECIMAL(12,2) NOT NULL,
     date_debut DATE NOT NULL,
     date_fin DATE NULL,
-    statut_actif BOOLEAN DEFAULT TRUE,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_client) REFERENCES EF_clients(id) ON DELETE CASCADE,
     FOREIGN KEY (id_type_contrat) REFERENCES EF_types_contrats_activite(id)
 );
@@ -41,8 +60,7 @@ CREATE TABLE EF_activites_clients (
 CREATE TABLE EF_types_mouvements_bancaires (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom_type_mouvement VARCHAR(100) NOT NULL,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    description TEXT
 );
 
 CREATE TABLE EF_mouvements_bancaires_clients (
@@ -51,9 +69,6 @@ CREATE TABLE EF_mouvements_bancaires_clients (
     id_type_mouvement INT NOT NULL,
     date_mouvement DATE NOT NULL,
     montant DECIMAL(12,2) NOT NULL,
-    description TEXT,
-    reference_transaction VARCHAR(100),
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_client) REFERENCES EF_clients(id) ON DELETE CASCADE,
     FOREIGN KEY (id_type_mouvement) REFERENCES EF_types_mouvements_bancaires(id)
 );
@@ -64,22 +79,14 @@ CREATE TABLE EF_etablissements_financiers (
     mot_de_passe VARCHAR(255) NOT NULL,
     nom_etablissement VARCHAR(150) NOT NULL,
     adresse_etablissement TEXT,
-    ville VARCHAR(100),
-    code_postal VARCHAR(10),
-    pays VARCHAR(100),
     telephone VARCHAR(20),
-    email VARCHAR(150),
     commentaire TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    statut_actif BOOLEAN DEFAULT TRUE
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE EF_types_mouvements_etablissements (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nom_type_mouvement VARCHAR(100) NOT NULL,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    nom_type_mouvement VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE EF_mouvements_bancaires_etablissements (
@@ -88,9 +95,6 @@ CREATE TABLE EF_mouvements_bancaires_etablissements (
     id_type_mouvement INT NOT NULL,
     montant DECIMAL(12,2) NOT NULL,
     date_mouvement DATE NOT NULL,
-    description TEXT,
-    reference_transaction VARCHAR(100),
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_etablissement) REFERENCES EF_etablissements_financiers(id) ON DELETE CASCADE,
     FOREIGN KEY (id_type_mouvement) REFERENCES EF_types_mouvements_etablissements(id)
 );
@@ -99,9 +103,7 @@ CREATE TABLE EF_mouvements_bancaires_etablissements (
 CREATE TABLE EF_types_remboursements (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom_type_remboursement VARCHAR(50) NOT NULL,
-    repetition_annuelle INT NOT NULL, -- nombre de fois par an (12=mensuel, 4=trimestriel, 1=annuel)
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    repetition_annuelle INT NOT NULL -- nombre de fois par an (12=mensuel, 4=trimestriel, 1=annuel)
 );
 
 CREATE TABLE EF_types_prets (
@@ -109,9 +111,21 @@ CREATE TABLE EF_types_prets (
     nom_type_pret VARCHAR(100) NOT NULL,
     taux_interet_min_annuel DECIMAL(5,2) NOT NULL, -- en pourcentage
     taux_interet_max_annuel DECIMAL(5,2) NOT NULL, -- en pourcentage
-    motif TEXT,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    motif TEXT
+);
+
+CREATE TABLE EF_mouvement_status_contrat (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_contrat_pret INT NOT NULL,
+    id_status_contrat INT NOT NULL,
+    date_mouvement DATE NOT NULL,
+    FOREIGN KEY (id_contrat_pret) REFERENCES EF_contrats_prets(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_status_contrat) REFERENCES EF_status_contrat(id) ON DELETE CASCADE
+);
+
+CREATE TABLE EF_status_contrat (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    libelle VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE EF_contrats_prets (
@@ -121,13 +135,10 @@ CREATE TABLE EF_contrats_prets (
     uuid VARCHAR(36) UNIQUE NOT NULL,
     id_type_pret INT NOT NULL,
     taux_interet_annuel DECIMAL(5,2) NOT NULL, -- en pourcentage
+    taux_assurance_annuel DECIMAL(5,2) DEFAULT 0, -- en pourcentage
     duree_remboursement_mois INT NOT NULL,
     montant_pret DECIMAL(12,2) NOT NULL,
     montant_echeance DECIMAL(12,2) NOT NULL,
-    date_signature DATE NOT NULL,
-    statut_contrat ENUM('actif', 'termine', 'suspendu', 'annule') DEFAULT 'actif',
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_client) REFERENCES EF_clients(id) ON DELETE CASCADE,
     FOREIGN KEY (id_type_remboursement) REFERENCES EF_types_remboursements(id),
     FOREIGN KEY (id_type_pret) REFERENCES EF_types_prets(id)
@@ -140,12 +151,9 @@ CREATE TABLE EF_prets_clients (
     montant_total_a_rembourser DECIMAL(12,2) NOT NULL, -- calculé
     nombre_periodes INT NOT NULL, -- calculé
     montant_echeance_periodique DECIMAL(12,2) NOT NULL, -- calculé
+    montant_assurance_periodique DECIMAL(12,2) NOT NULL, -- calculé
     date_debut_pret DATE NOT NULL,
-    date_fin_prevue_pret DATE NOT NULL,
-    date_fin_reelle_pret DATE NULL,
-    statut_pret ENUM('en_cours', 'rembourse', 'en_retard', 'defaillant') DEFAULT 'en_cours',
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    date_fin_prevue_pret DATE NULL,
     FOREIGN KEY (id_contrat_pret) REFERENCES EF_contrats_prets(id) ON DELETE CASCADE
 );
 
@@ -153,35 +161,13 @@ CREATE TABLE EF_remboursements_prets (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_pret_client INT NOT NULL,
     numero_periode INT NOT NULL,
-    date_echeance_prevue DATE NOT NULL,
-    date_remboursement_effectif DATE NULL,
+    date_remboursement DATE NULL,
     montant_echeance DECIMAL(12,2) NOT NULL, -- amortissement total
     montant_interet DECIMAL(12,2) NOT NULL,
+    montant_assurance DECIMAL(12,2) NOT NULL,
     montant_capital_rembourse DECIMAL(12,2) NOT NULL,
     capital_restant_du DECIMAL(12,2) NOT NULL,
-    statut_remboursement ENUM('en_attente', 'paye', 'en_retard', 'paye_partiel') DEFAULT 'en_attente',
-    montant_paye DECIMAL(12,2) DEFAULT 0,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_pret_client) REFERENCES EF_prets_clients(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE EF_types_fonds (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom_type_fond VARCHAR(100) NOT NULL,
-    description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE EF_produits_investissements (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom_produit VARCHAR(150) NOT NULL,
-    description_produit TEXT,
-    commentaire TEXT,
-    statut_produit ENUM('actif', 'inactif', 'suspendu') DEFAULT 'actif',
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE EF_type_partenaire (
@@ -206,8 +192,6 @@ CREATE TABLE EF_mouvements_partenaire (
     depot_minimum DECIMAL(12,2) NOT NULL,
     depot_maximum DECIMAL(12,2) NULL,
     taux_rendement_annuel DECIMAL(5,2) NOT NULL, -- en pourcentage
-    statut_mouvement ENUM('actif', 'inactif') DEFAULT 'actif',
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_partenaire) REFERENCES EF_partenaire(id) ON DELETE CASCADE
 );
 
@@ -217,12 +201,6 @@ CREATE TABLE EF_fonds_investis_clients (
     id_client INT NOT NULL,
     montant_investi DECIMAL(12,2) NOT NULL,
     date_investissement DATE NOT NULL,
-    date_echeance_prevue DATE NULL,
-    taux_rendement_applique DECIMAL(5,2) NOT NULL, -- taux au moment de l'investissement
-    statut_investissement ENUM('actif', 'echu', 'retire', 'suspendu') DEFAULT 'actif',
-    montant_actuel DECIMAL(12,2) NULL, -- montant avec intérêts accumulés
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_partenaire) REFERENCES EF_partenaire(id) ON DELETE CASCADE,
     FOREIGN KEY (id_client) REFERENCES EF_clients(id) ON DELETE CASCADE
 );
@@ -233,11 +211,7 @@ CREATE TABLE EF_retraits_fonds (
     date_retrait DATE NOT NULL,
     montant_retrait DECIMAL(12,2) NOT NULL,
     montant_interets DECIMAL(12,2) DEFAULT 0,
-    montant_penalite DECIMAL(12,2) DEFAULT 0,
     motif_retrait TEXT,
-    statut_retrait ENUM('en_attente', 'valide', 'annule') DEFAULT 'en_attente',
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_fond_investi) REFERENCES EF_fonds_investis_clients(id) ON DELETE CASCADE
 );
 
