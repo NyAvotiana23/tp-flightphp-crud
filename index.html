@@ -34,7 +34,7 @@
   </table>
 
   <script>
-    const apiBase = "http://localhost:8888/tp-flightphp-crud/ws";
+    const apiBase = "http://localhost/tp-flightphp-crud-MVC/tp-flightphp-crud/ws";
 
     function ajax(method, url, data, callback) {
       const xhr = new XMLHttpRequest();
@@ -42,6 +42,7 @@
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log(xhr.responseText);
           callback(JSON.parse(xhr.responseText));
         }
       };
