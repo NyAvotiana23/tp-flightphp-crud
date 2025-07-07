@@ -45,7 +45,12 @@ include("../section/navbar.php");
                 </select>
             </div>
         </div>
-        <button class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Appliquer les filtres</button>
+        <div class="flex flex-row gap-8 mt-8">
+            <a class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Appliquer les filtres</a>
+            =>> SI LOCAL STORAGE ID_CLIENT NOT NULL <a href="pret-form.php" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Faire un pret</a>
+        </div>
+
+
     </div>
 
     <!-- Loan List -->

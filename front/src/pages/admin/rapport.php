@@ -5,7 +5,7 @@ include("../section/head.php");
 <?php
 include("../section/navbar.php");
 ?>
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 mt-16">
     <!-- Header -->
     <header class="mb-8">
         <h1 class="text-h1 font-bold text-custom-purple-primary">Gestion des Prêts et Investissements</h1>
@@ -18,11 +18,13 @@ include("../section/navbar.php");
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
                 <label for="date-filter" class="block text-base font-medium mb-2">Date du mouvement</label>
-                <input type="date" id="date-filter" class="w-full p-2 border border-custom-purple-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <input type="date" id="date-filter"
+                       class="w-full p-2 border border-custom-purple-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
             </div>
             <div>
                 <label for="type-filter" class="block text-base font-medium mb-2">Type de mouvement</label>
-                <select id="type-filter" class="w-full p-2 border border-custom-purple-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <select id="type-filter"
+                        class="w-full p-2 border border-custom-purple-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
                     <option value="">Tous</option>
                     <option value="gain_fond">Gain Fond</option>
                     <option value="retour_fond">Retour Fond</option>
@@ -31,7 +33,9 @@ include("../section/navbar.php");
                 </select>
             </div>
             <div class="flex items-end">
-                <button class="w-full bg-custom-purple-primary text-white p-2 rounded-md hover:bg-custom-purple-secondary transition duration-200">Appliquer les filtres</button>
+                <button class="w-full bg-custom-purple-primary text-white p-2 rounded-md hover:bg-custom-purple-secondary transition duration-200">
+                    Appliquer les filtres
+                </button>
             </div>
         </div>
     </section>
@@ -94,4 +98,14 @@ include("../section/navbar.php");
         <p class="text-custom-sm text-custom-black">À la date du [Date]</p>
     </section>
 </div>
+<script>
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+    });
+</script>
 </body>

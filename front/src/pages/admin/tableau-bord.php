@@ -143,6 +143,15 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Erreur lors de la récupération des produits:", err);
   });
 });
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+    });
 </script>
+
 
 </body>
