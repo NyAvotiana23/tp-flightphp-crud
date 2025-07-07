@@ -122,15 +122,9 @@ include("../section/navbar.php");
     }
     function onSubmitClient (event) {
         event.preventDefault();
-        const clientNumber = document.getElementById('clientNumber').value;
-        const password = document.getElementById('password').value;
 
-        if (!clientNumber || !password) {
-            alert('Veuillez remplir tous les champs.');
-            return;
-        }
-
-        alert(`Connexion réussie pour le client ${clientNumber}`);
+        alert("Connexion en tant que client effectuée avec succès !");
+        window.location.href = "status.php";
     }
 
     function closeClientDetails() {
