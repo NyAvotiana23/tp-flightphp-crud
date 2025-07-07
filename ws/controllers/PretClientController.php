@@ -85,7 +85,7 @@ class PretClientController {
             LEFT JOIN EF_mouvement_status_contrat msc ON cp.id = msc.id_contrat_pret
             LEFT JOIN EF_status_contrat sc ON msc.id_status_contrat = sc.id
             $whereClause
-            ORDER BY pc.id DESC
+            ORDER BY pc.id, status_date DESC
         ";
 
         try {
