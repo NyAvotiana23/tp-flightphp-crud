@@ -1,0 +1,5 @@
+Je veux que tu fasse cette page,
+donne moi just le body du html,
+utilise tailwind css et le theme
+ici et les type scale pour une bonne ergonomie.
+Theme Gestion de Pret et Investissement sur un Etablissement Financier.
