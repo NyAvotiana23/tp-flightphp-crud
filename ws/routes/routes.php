@@ -20,6 +20,8 @@ require_once __DIR__ . '/../controllers/RetraitFondController.php';
 require_once __DIR__ . '/../controllers/EtudiantController.php';
 require_once __DIR__ . '/../controllers/StatusContratController.php';
 require_once __DIR__ . '/../controllers/MouvementStatusContratController.php';
+require_once __DIR__ . '/../controllers/TypePartenaireController.php';
+require_once __DIR__ . '/../controllers/PartenaireController.php';
 
 // Clients
 Flight::route('GET /clients', ['ClientController', 'getAll']);
@@ -127,6 +129,18 @@ Flight::route('GET /mouvements-produits/@id', ['MouvementPartenaireController', 
 Flight::route('POST /mouvements-produits', ['MouvementPartenaireController', 'create']);
 Flight::route('PUT /mouvements-produits/@id', ['MouvementPartenaireController', 'update']);
 Flight::route('DELETE /mouvements-produits/@id', ['MouvementPartenaireController', 'delete']);
+
+Flight::route('GET /type-partenaire', ['TypePartenaireController', 'getAll']);
+Flight::route('GET /type-partenaire/@id', ['TypePartenaireController', 'getById']);
+Flight::route('POST /type-partenaire', ['TypePartenaireController', 'create']);
+Flight::route('PUT /type-partenaire/@id', ['TypePartenaireController', 'update']);
+Flight::route('DELETE /type-partenaire/@id', ['TypePartenaireController', 'delete']);
+
+Flight::route('GET /partenaire', ['PartenaireController', 'getAll']);
+Flight::route('GET /partenaire/@id', ['PartenaireController', 'getById']);
+Flight::route('POST /partenaire', ['PartenaireController', 'create']);
+Flight::route('PUT /partenaire/@id', ['PartenaireController', 'update']);
+Flight::route('DELETE /partenaire/@id', ['PartenaireController', 'delete']);
 
 // Fonds investis clients
 Flight::route('GET /fonds-investis-clients', ['FondInvestiClientController', 'getAll']);
