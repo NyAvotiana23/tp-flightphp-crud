@@ -17,7 +17,6 @@ class EtudiantController {
 
     public static function create() {
         $model = new Etudiant();
-        $model = new Etudiant();
         $data = Flight::request()->data;
 
         $id = $model->create($data);
@@ -27,16 +26,12 @@ class EtudiantController {
 
     public static function update($id) {
         $model = new Etudiant();
-
-        $model = new Etudiant();
         $data = Flight::request()->data;
         $model->update($id, $data);
         Flight::json(['message' => 'Étudiant modifié']);
     }
 
     public static function delete($id) {
-        $model = new Etudiant();
-
         $model = new Etudiant();
         $model->delete($id);
         Flight::json(['message' => 'Étudiant supprimé']);
