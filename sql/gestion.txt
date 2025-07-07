@@ -24,7 +24,7 @@ MouvementActiviteClient :
     - date_debut
     - date_fin (default null)
 
-TypeMouvementCompteBancaire :(Fond investissement, Pret, Activite,  Budget Initial ,Autres)
+TypeMouvementCompteBancaire :(Fond investissement, Pret, Rembourssement Pret , Activite,  Budget Initial ,Autres)
     - id
     - nom
 
@@ -50,69 +50,9 @@ TypeMouvementEF : (Gain Fond, Retour Fond, Sortis Pret, Rembourssement Pret)
     - nom
 MouvementCompteBancaireEtablissement :
     - id
-    - id_type_mouvement
+    - TypeMouvementEF
     - montant
     - date_mouvement
-
-
-Type Fond :
-    - id
-    - id_etablissement_financier
-    - durre_retour (mois)
-    - taux_interet
-
-
-FondInvestiParClient :
-    - id
-    - id_type_fond
-    - id_client
-    - montant_investi
-    - date_investissement
-
-RetourFond :
-    - id
-    - id_fond_investissement
-    - date_retour
-    - montant_retour
-
-Demande_pret :
-    - id
-    - id_client
-    - id_type_pret
-    - motif_pret
-    - date_demande_pret
-    - date_realisation_pret (default null)
-    - montant_demander
-
-StatusDemandePret :(unique: id_demande, id_status)
-    - id
-    - id_demande
-    - id_status
-    - date_reponse
-
-StatusPret : (en_attente,refuser ,accepte, rembourser, retard)
-    - id
-    - libelle
-
-Type Pret :
-    - id
-    - id_etablissement_financier
-    - durre_retour_pret (mois)
-    - taux_revenues
-
-PretClient :
-    - id
-    - id_type_pret
-    - id_demande_pret
-    - montant_pret
-    - date_debut_empreint
-    - date_fin_empreint
-
-RetourPret :
-    - id
-    - id_pret_client
-    - date_retour
-    - montant_retour
 
 
 

@@ -1,14 +1,100 @@
 Connexion :
-    - Client par NumeroClient et mot_de_passe
     - Admin : numero_identification et mot_de_passe
 
-Client :
+Admin :
     - Consulter le solde
-    - Faire un investissement
-    - Demander un pret :
-        - if : demande=accepter :
-            - rembourssement :
-                - form de rembourssement
+
+    - Faire un investissement :
+        - choisir produit à investir
+            => Investir produit : (input : id_client, id_investi,montant, date, durre)
+            Begin Transaction :
+                - Ajout MouvementCompteBancaireClient :
+                        * type_mouvement => Fond investissement
+                        * montant =  - montant investi
+                        * date_mouvement = date ==  null ? aujourd'hui : date
+                - Ajout MouvementCompteBancaireEtablissement :
+                        * TypeMouvementEF => Gain Fond
+                        * montant =  + montant investi
+                        * date_mouvement = date ==  null ? aujourd'hui : date
+                - FondInvestiParClient :
+                        * id_produit_investi
+                        * montant_investi = motant
+                        * date_investissement = date ==  null ? aujourd'hui : date
+                *** Regle de Gestion :
+                    - Possible si :
+                        - Etats compte banque client  à la date >= montant
+                        => Produit_investi = date_changement (Mouvement_Produit) = id_produit
+                        - Produit_investi.durre_maximale >= durre
+                            &&  Produit_investi.durre_minimal <= durre
+                            &&  Produit_investi.depot_minimum <= montant
+                            &&  Produit_investi.depot_maximal >= montant
+                        - Unique Investissement Produit Client
+
+    - cree un contrat :
+        => Input (id_client, type_remboursement, type_pret, taux_revenu, duree_retour, montant_pret)
+            * id_client
+            * id_type_rembourssement
+            * id_type_pret
+            * taux_revenues
+            * durre_retour_pret
+            * montant_pret
+            * echeance = (P * r) / (1 - (1 + r)^-n)
+                 - P = montant_pret
+                 - r = taux_revenues / type_rembourssement.repetition_annuel
+                 - n = contrat.durre_retour_pret
+            * uuid = ??
+
+            *** Regle de gestion :
+                _ client existe
+                _ taux_revenu >= type_pret.taux_revenues_min &&
+                taux_revenu <= type_pret.taux_revenues_max
+
+    - Approbation contrat :
+            => Input (id_contrat, date)
+        choisir contrat :
+            if accepter contrat :
+                => Ajout pret :
+                    * montant_pret = contrat.demande_pret.montant
+                    * nombre_periode = (contrat.durre_retour_pret / 12) * contrat.type_rembourssement.repetition_annuel
+                    * due_periodique_avec_interet = contrat.echeance
+                    * montant_finale_rembourser = due_periodique_avec_interet * nombre_periode
+                    * date_debut_empreint = date
+                    * date_fin_empreint = date_debut_empreint + contrat.durre_retour_pret
+
+                - Ajout MouvementCompteBancaireClient :
+                                        * type_mouvement => Pret
+                                        * montant =  + montant investi
+                                        * date_mouvement = date ==  null ? aujourd'hui : date
+
+                - Ajout MouvementCompteBancaireEtablissement :
+                        * TypeMouvementEF => Sortis Pret
+                        * montant =  - montant investi
+                        * date_mouvement = date ==  null ? aujourd'hui : date
+
+                - for i = 1 => nombre_periode :
+                    - Ajout MouvementCompteBancaireClient :
+                        * type_mouvement => Rembourssement Pret
+                        * montant =  - due_periodique_avec_interet
+                        * date_mouvement = date + i * contrat.type_rembourssement.periode
+                    - Ajout MouvementCompteBancaireEtablissement :
+                        * TypeMouvementEF => Sortis Pret
+                        * montant =  + due_periodique_avec_interet
+                        * date_mouvement = date + i * contrat.type_rembourssement.periode
+
+                    C
+                    - Ajout RetourPret :
+                           * index_period = i
+                           * date_retour = date + i * contrat.type_rembourssement.periode
+                           * echeance = contrat.echeance
+                           * interet = (contrat.taux_revenues / contrat.type_rembourssement.repetition_annuel) * contrat.demande_pret.montant
+                           * Capital remboursé = due_periodique_avec_interet - interet
+                           * Nouveau capital restant dû = contrat.demande_pret.montant - Capital remboursé
+
+            else :
+                 AJout StatusDemandePret :
+                                * status = refuser_client
+                                * date_reponse = date
+
     - Liste Pret / Fond : filtre rembourser ou non
 
 Admin :

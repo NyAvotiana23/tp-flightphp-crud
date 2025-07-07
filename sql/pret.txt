@@ -1,0 +1,74 @@
+
+
+
+Type Rembourssement : (mensuel, trimestriel, annuel)
+    - id
+    - nom
+    - repetition_annuel
+
+Contrat_pret :
+    - id
+    - id_client
+    - id_type_rembourssement
+    - uuid
+    - id_type_pret
+    - taux_revenues (annuel)
+    - durre_retour_pret (mois)
+    - montant_pret
+    - echeance
+
+Type Pret :
+    - id
+    - taux_revenues_min (annuel)
+    - taux_revenues_max (annuel)
+    - motif
+
+PretClient :
+    - id
+    - id_contrat
+    - montant_pret
+    - montant_finale_rembourser (Calculer dans contrat)
+    - nombre_periode (Calculer dans contrat)
+    - due_periodique_avec_interet (Calculer dans contrat, mensualite ou autre)
+    - date_debut_empreint
+    - date_fin_empreint
+
+RetourPret :
+    - id
+    - id_pret_client
+    - index_period
+    - date_retour
+    - echeance (Amortissement)
+    - interet
+    - Capital remboursé
+    - Nouveau capital restant dû
+
+Mois 1 :
+
+Capital restant dû : 100 000 €.
+Intérêts : $ 100 000 \cdot 0,0025 = 250 € $.
+Capital remboursé : $ 1 321 - 250 = 1 071 € $.
+Nouveau capital restant dû : $ 100 000 - 1 071 = 98 929 € $.
+
+
+Mois 2 :
+
+Intérêts : $ 98 929 \cdot 0,0025 \approx 247 € $.
+Capital remboursé : $ 1 321 - 247 = 1 074 € $.
+Nouveau capital restant dû : $ 98 929 - 1 074 = 97 855 € $.
+
+Amortissement :
+
+$$M = \frac{P \cdot r \cdot (1 + r)^n}{(1 + r)^n - 1}$$
+Où :
+
+M = Mensualité
+P = Capital emprunté
+r = Taux d’intérêt mensuel (taux annuel ÷ 12)
+n = Nombre de mensualités
+
+
+(P * r) / (1 - (1 + r)^-n)
+        - P = montant_pret
+        - r = contrat.taux_revenues / contrat.type_rembourssement.repetition_annuel
+        - n = contrat.durre_retour_pret

@@ -1,0 +1,35 @@
+
+Type Fond :
+    - id
+    - commentaire
+
+Produit_investi :
+    - id
+    - nom_produit
+    - description_produit
+    - commentaire
+
+Mouvement_Produit :
+    - id
+    - id_produit
+    - date_changement
+    - durre_maximale
+    - durre_minimale
+    - depot_minimum
+    - depot_maximum
+    - taux_annuel
+
+
+FondInvestiParClient :
+    - id
+    - id_produit_investi
+    - id_client
+    - montant_investi
+    - date_investissement
+
+
+RetourFond :
+    - id
+    - id_fond_investi
+    - date_retrait
+    - montant_retrait
