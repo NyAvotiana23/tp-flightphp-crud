@@ -11,7 +11,7 @@ include("../section/head.php");
         <ul class="flex space-x-6">
             <li><a href="tableau-bord.php" class="hover:text-custom-purple-secondary text-base ">Nos partenaires</a>
             </li>
-            <li><a href="#" class="hover:text-custom-purple-secondary text-base">Prêts</a></li>
+            <li><a href="pret.php" class="hover:text-custom-purple-secondary text-base">Prêts</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Investissements</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Rapports</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Paramètres</a></li>
