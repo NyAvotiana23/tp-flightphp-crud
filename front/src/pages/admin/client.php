@@ -130,5 +130,13 @@ include("../section/navbar.php");
     function closeClientDetails() {
         document.getElementById('clientModal').classList.add('hidden');
     }
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+    });
 </script>
 </body>

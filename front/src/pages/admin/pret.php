@@ -200,5 +200,6 @@ include("../section/navbar.php");
             navbar.style.transform = 'translateY(0)';
         }
     });
+
 </script>
 </body>
