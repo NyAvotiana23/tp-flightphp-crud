@@ -7,7 +7,7 @@ include("../section/head.php");
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <h1 class="text-h5 font-bold">Administration Financière</h1>
         <ul class="flex space-x-6">
-            <li><a href="#" class="hover:text-custom-purple-secondary text-base">Tableau de bord</a></li>
+            <li><a href="tableau-bord.php" class="hover:text-custom-purple-secondary text-base">Tableau de bord</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Prêts</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Investissements</a></li>
             <li><a href="#" class="hover:text-custom-purple-secondary text-base">Rapports</a></li>
