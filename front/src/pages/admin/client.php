@@ -10,7 +10,7 @@ include("../section/navbar.php");
     <!-- Login Form -->
     <div class="max-w-md mx-auto mb-12 bg-white rounded-lg shadow-lg p-6">
         <h1 class="text-h1 font-bold text-custom-purple-primary mb-6 text-center">Connexion Client</h1>
-        <form>
+        <form onsubmit="onSubmitClient(event)">
             <div class="mb-4">
                 <label for="clientNumber" class="block text-h6 font-medium mb-2">Numéro Client</label>
                 <input type="text" id="clientNumber" class="w-full p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" placeholder="Entrez votre numéro client">
@@ -77,7 +77,7 @@ include("../section/navbar.php");
             </div>
             <div class="mt-6">
                 <h4 class="text-h4 font-medium mb-4">Connexion au compte</h4>
-                <form>
+                <form onsubmit="onSubmitClient(event)">
                     <div class="mb-4">
                         <label for="modalClientNumber" class="block text-h6 font-medium mb-2">Numéro Client</label>
                         <input type="text" id="modalClientNumber" class="w-full p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" value="C001" readonly>
@@ -119,6 +119,12 @@ include("../section/navbar.php");
         document.getElementById('modalClientNumber').value = clientData.numeroClient;
 
         document.getElementById('clientModal').classList.remove('hidden');
+    }
+    function onSubmitClient (event) {
+        event.preventDefault();
+
+        alert("Connexion en tant que client effectuée avec succès !");
+        window.location.href = "status.php";
     }
 
     function closeClientDetails() {
