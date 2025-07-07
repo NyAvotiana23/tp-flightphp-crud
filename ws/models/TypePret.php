@@ -1,8 +1,9 @@
 <?php
+
 require_once 'BaseModel.php';
 
-class Etudiant extends BaseModel {
+class TypePret extends BaseModel {
     public function __construct() {
-        parent::__construct('etudiant');
+        parent::__construct('types_prets');
     }
 }

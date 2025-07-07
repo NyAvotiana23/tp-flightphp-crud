@@ -20,7 +20,7 @@ include("../section/head.php");
 
 <!-- Section Héros -->
 <section class="min-h-screen flex items-center bg-custom-gray-purple">
-    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         <!-- Gauche : Titre et Description -->
         <div class="md:w-1/2 mb-8 md:mb-0">
             <h1 class="text-h1 font-bold text-custom-black mb-4">Gérez vos prêts et investissements</h1>
