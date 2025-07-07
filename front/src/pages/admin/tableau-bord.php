@@ -80,4 +80,18 @@ include("../section/navbar.php");
     });
 
 </script>
+<script type="module">
+  import { ajax } from "../../../api/ajax.js";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Appelle l'API dès que la page est prête
+    ajax("GET", "/produits-investissements", null, (data) => {
+      console.log("Produits d'investissement reçus:", data);
+      // Tu pourras ici ensuite construire dynamiquement les cards si tu veux
+    }, (err) => {
+      console.error("Erreur lors de la récupération des produits:", err);
+    });
+  });
+</script>
+
 </body>

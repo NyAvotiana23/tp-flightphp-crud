@@ -1,6 +1,6 @@
 const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
 
-function ajax(method, url, data, callback, errorCallback) {
+export function ajax(method, url, data, callback, errorCallback) {
     const xhr = new XMLHttpRequest();
     const fullUrl = apiBase + url;
 
