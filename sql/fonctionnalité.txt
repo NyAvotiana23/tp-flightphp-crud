@@ -1,0 +1,17 @@
+Connexion :
+    - Client par NumeroClient et mot_de_passe
+    - Admin : numero_identification et mot_de_passe
+
+Client :
+    - Consulter le solde
+    - Faire un investissement
+    - Demander un pret :
+        - if : demande=accepter :
+            - rembourssement :
+                - form de rembourssement
+    - Liste Pret / Fond : filtre rembourser ou non
+
+Admin :
+    - ajouter client
+    - rembourser fond
+    - accepter pret
