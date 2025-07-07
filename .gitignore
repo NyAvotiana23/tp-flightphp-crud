@@ -1,2 +1,3 @@
 /ws/vendor
 /ws/db.php
+/front/src/api/ajax.js
