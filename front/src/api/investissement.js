@@ -1,0 +1,54 @@
+import { ajax } from './ajax.js';
+
+function fillTypePartenaireSelect(data) {
+    const select = document.getElementById('type-partenaire');
+
+    if (!Array.isArray(data)) return;
+
+    select.innerHTML = '<option value="">Tous les types</option>';
+    select.style.color = '#000';
+
+    data.forEach(type => {
+        const option = document.createElement('option');
+        option.value = type.id;
+        option.textContent = type.description; 
+        option.style.color = '#000';
+        select.appendChild(option);
+    });
+}
+
+function fillInvestissementsTable(data) {
+    const tbody = document.querySelector('table tbody');
+    if (!Array.isArray(data)) {
+        console.error("Données d'investissements invalides :", data);
+        return;
+    }
+
+    tbody.innerHTML = ''; // Vider le tableau avant d'ajouter
+
+    data.forEach(invest => {
+        const tr = document.createElement('tr');
+        tr.className = "border-b border-custom-purple-secondary hover:bg-custom-gray-purple";
+
+        tr.innerHTML = `
+            <td class="p-3">${invest.nom_partenaire}</td>
+            <td class="p-3">${invest.type_partenaire}</td>
+            <td class="p-3">${invest.nom_client}</td>
+            <td class="p-3">${invest.montant_investi} €</td>
+            <td class="p-3">${invest.date_investissement}</td>
+            <td class="p-3">${invest.taux_annuel} %</td>
+            <td class="p-3">${invest.retrait || '-'}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+function handleError(error) {
+    console.error("Erreur lors d’un chargement :", error);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    ajax('GET', '/type-partenaire', null, fillTypePartenaireSelect, handleError);
+    ajax('GET', '/fonds-investis-clients', null, fillInvestissementsTable, handleError);
+});

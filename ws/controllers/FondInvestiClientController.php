@@ -5,7 +5,7 @@ require_once __DIR__ . '/../helpers/Utils.php';
 class FondInvestiClientController {
     public static function getAll() {
         $model = new FondInvestiClient();
-        $items = $model->getAll();
+        $items = $model->findAllLoaded();
         Flight::json($items);
     }
 
