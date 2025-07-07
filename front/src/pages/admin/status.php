@@ -19,11 +19,14 @@ include("../section/navbar.php");
         <div class="flex flex-wrap gap-4 mb-6">
             <div>
                 <label for="transactionDate" class="block text-h6 font-medium mb-2">Date</label>
-                <input type="date" id="transactionDate" class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" value="2025-07-07">
+                <input type="date" id="transactionDate"
+                       class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary"
+                       value="2025-07-07">
             </div>
             <div>
                 <label for="movementType" class="block text-h6 font-medium mb-2">Type de Mouvement</label>
-                <select id="movementType" class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <select id="movementType"
+                        class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
                     <option value="all">Tous</option>
                     <option value="deposit">Dépôt</option>
                     <option value="withdrawal">Retrait</option>
@@ -35,8 +38,14 @@ include("../section/navbar.php");
 
         <!-- Action Buttons -->
         <div class="flex gap-4 mb-6">
-            <button onclick="openLoanModal()" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Faire un Prêt</button>
-            <button onclick="openInvestmentModal()" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Investir</button>
+            <a href="pret.php"
+               class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">
+                Faire un Prêt
+            </a>
+            <a href="tableau-bord.php"
+               class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">
+                Investir
+            </a>
         </div>
 
         <!-- Transaction List -->
@@ -61,156 +70,116 @@ include("../section/navbar.php");
             <p class="text-h4 font-bold"><strong>Solde Final:</strong> <span id="finalBalance">0.00 EUR</span></p>
         </div>
     </div>
+    <script>
+        // Mock client data from localStorage
+        function loadClientData() {
+            const client = JSON.parse(localStorage.getItem('client')) || {
+                numeroClient: 'C001',
+                nom: 'Dupont',
+                prenom: 'Jean',
+                balance: 1000.00,
+                transactions: []
+            };
+            document.getElementById('clientNumber').textContent = client.numeroClient;
+            document.getElementById('clientName').textContent = `${client.prenom} ${client.nom}`;
+            document.getElementById('clientBalance').textContent = `${client.balance.toFixed(2)} EUR`;
+            return client;
+        }
 
-    <!-- Loan Modal -->
-    <div id="loanModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 class="text-h3 font-bold text-custom-purple-primary mb-4">Demande de Prêt</h3>
-            <form id="loanForm">
-                <div class="mb-4">
-                    <label for="loanAmount" class="block text-h6 font-medium mb-2">Montant du Prêt</label>
-                    <input type="number" id="loanAmount" class="w-full p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" placeholder="Entrez le montant">
-                </div>
-                <div class="mb-4">
-                    <label for="loanDescription" class="block text-h6 font-medium mb-2">Description</label>
-                    <input type="text" id="loanDescription" class="w-full p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" placeholder="Description du prêt">
-                </div>
-                <button type="submit" class="w-full bg-custom-purple-primary text-white py-2 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Soumettre</button>
-            </form>
-            <button onclick="closeLoanModal()" class="mt-4 text-custom-purple-primary hover:underline">Fermer</button>
-        </div>
-    </div>
+        // Load and display transactions
+        function loadTransactions(filterType = 'all', filterDate = '2025-07-07') {
+            const client = loadClientData();
+            const transactions = client.transactions.filter(t => {
+                return (filterType === 'all' || t.type === filterType) && (!filterDate || t.date === filterDate);
+            });
 
-    <!-- Investment Modal -->
-    <div id="investmentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 class="text-h3 font-bold text-custom-purple-primary mb-4">Investissement</h3>
-            <form id="investmentForm">
-                <div class="mb-4">
-                    <label for="investmentAmount" class="block text-h6 font-medium mb-2">Montant de l'Investissement</label>
-                    <input type="number" id="investmentAmount" class="w-full p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" placeholder="Entrez le montant">
-                </div>
-                <div class="mb-4">
-                    <label for="investmentDescription" class="block text-h6 font-medium mb-2">Description</label>
-                    <input type="text" id="investmentDescription" class="w-full p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary" placeholder="Description de l'investissement">
-                </div>
-                <button type="submit" class="w-full bg-custom-purple-primary text-white py-2 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Soumettre</button>
-            </form>
-            <button onclick="closeInvestmentModal()" class="mt-4 text-custom-purple-primary hover:underline">Fermer</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Mock client data from localStorage
-    function loadClientData() {
-        const client = JSON.parse(localStorage.getItem('client')) || {
-            numeroClient: 'C001',
-            nom: 'Dupont',
-            prenom: 'Jean',
-            balance: 1000.00,
-            transactions: []
-        };
-        document.getElementById('clientNumber').textContent = client.numeroClient;
-        document.getElementById('clientName').textContent = `${client.prenom} ${client.nom}`;
-        document.getElementById('clientBalance').textContent = `${client.balance.toFixed(2)} EUR`;
-        return client;
-    }
-
-    // Load and display transactions
-    function loadTransactions(filterType = 'all', filterDate = '2025-07-07') {
-        const client = loadClientData();
-        const transactions = client.transactions.filter(t => {
-            return (filterType === 'all' || t.type === filterType) && (!filterDate || t.date === filterDate);
-        });
-
-        const transactionList = document.getElementById('transactionList');
-        transactionList.innerHTML = '';
-        transactions.forEach(t => {
-            const row = document.createElement('tr');
-            row.className = 'border-b border-custom-purple-secondary';
-            row.innerHTML = `
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = '';
+            transactions.forEach(t => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-custom-purple-secondary';
+                row.innerHTML = `
                     <td class="p-3">${t.date}</td>
                     <td class="p-3">${t.type}</td>
                     <td class="p-3">${t.amount.toFixed(2)} EUR</td>
                     <td class="p-3">${t.description}</td>
                 `;
-            transactionList.appendChild(row);
-        });
+                transactionList.appendChild(row);
+            });
 
-        const finalBalance = transactions.reduce((sum, t) => sum + (t.type === 'deposit' || t.type === 'loan' ? t.amount : -t.amount), client.balance);
-        document.getElementById('finalBalance').textContent = `${finalBalance.toFixed(2)} EUR`;
-    }
+            const finalBalance = transactions.reduce((sum, t) => sum + (t.type === 'deposit' || t.type === 'loan' ? t.amount : -t.amount), client.balance);
+            document.getElementById('finalBalance').textContent = `${finalBalance.toFixed(2)} EUR`;
+        }
 
-    // Handle loan form submission
-    document.getElementById('loanForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const amount = parseFloat(document.getElementById('loanAmount').value);
-        const description = document.getElementById('loanDescription').value;
-        const client = loadClientData();
-        client.transactions.push({
-            date: document.getElementById('transactionDate').value,
-            type: 'loan',
-            amount: amount,
-            description: description || 'Prêt'
-        });
-        client.balance += amount;
-        localStorage.setItem('client', JSON.stringify(client));
-        loadTransactions();
-        closeLoanModal();
-    });
-
-    // Handle investment form submission
-    document.getElementById('investmentForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const amount = parseFloat(document.getElementById('investmentAmount').value);
-        const description = document.getElementById('investmentDescription').value;
-        const client = loadClientData();
-        if (amount <= client.balance) {
+        // Handle loan form submission
+        document.getElementById('loanForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const description = document.getElementById('loanDescription').value;
+            const client = loadClientData();
             client.transactions.push({
                 date: document.getElementById('transactionDate').value,
-                type: 'investment',
+                type: 'loan',
                 amount: amount,
-                description: description || 'Investissement'
+                description: description || 'Prêt'
             });
-            client.balance -= amount;
+            client.balance += amount;
             localStorage.setItem('client', JSON.stringify(client));
             loadTransactions();
-        } else {
-            alert('Solde insuffisant pour cet investissement.');
+            closeLoanModal();
+        });
+
+        // Handle investment form submission
+        document.getElementById('investmentForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('investmentAmount').value);
+            const description = document.getElementById('investmentDescription').value;
+            const client = loadClientData();
+            if (amount <= client.balance) {
+                client.transactions.push({
+                    date: document.getElementById('transactionDate').value,
+                    type: 'investment',
+                    amount: amount,
+                    description: description || 'Investissement'
+                });
+                client.balance -= amount;
+                localStorage.setItem('client', JSON.stringify(client));
+                loadTransactions();
+            } else {
+                alert('Solde insuffisant pour cet investissement.');
+            }
+            closeInvestmentModal();
+        });
+
+        // Modal controls
+        function openLoanModal() {
+            document.getElementById('loanModal').classList.remove('hidden');
         }
-        closeInvestmentModal();
-    });
 
-    // Modal controls
-    function openLoanModal() {
-        document.getElementById('loanModal').classList.remove('hidden');
-    }
+        function closeLoanModal() {
+            document.getElementById('loanModal').classList.add('hidden');
+            document.getElementById('loanForm').reset();
+        }
 
-    function closeLoanModal() {
-        document.getElementById('loanModal').classList.add('hidden');
-        document.getElementById('loanForm').reset();
-    }
+        function openInvestmentModal() {
+            document.getElementById('investmentModal').classList.remove('hidden');
+        }
 
-    function openInvestmentModal() {
-        document.getElementById('investmentModal').classList.remove('hidden');
-    }
+        function closeInvestmentModal() {
+            document.getElementById('investmentModal').classList.add('hidden');
+            document.getElementById('investmentForm').reset();
+        }
 
-    function closeInvestmentModal() {
-        document.getElementById('investmentModal').classList.add('hidden');
-        document.getElementById('investmentForm').reset();
-    }
+        // Filter transactions on change
+        document.getElementById('movementType').addEventListener('change', (e) => {
+            loadTransactions(e.target.value, document.getElementById('transactionDate').value);
+        });
 
-    // Filter transactions on change
-    document.getElementById('movementType').addEventListener('change', (e) => {
-        loadTransactions(e.target.value, document.getElementById('transactionDate').value);
-    });
+        document.getElementById('transactionDate').addEventListener('change', (e) => {
+            loadTransactions(document.getElementById('movementType').value, e.target.value);
+        });
 
-    document.getElementById('transactionDate').addEventListener('change', (e) => {
-        loadTransactions(document.getElementById('movementType').value, e.target.value);
-    });
-
-    // Initial load
-    loadTransactions();
-</script>
+        // Initial load
+        loadTransactions();
+    </script>
 </body>
