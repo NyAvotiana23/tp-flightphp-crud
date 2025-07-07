@@ -1,12 +1,17 @@
-Produit_investi :
+Type_partenaire
     - id
-    - nom_produit
-    - description_produit
+    - designation
+
+Partenaire :
+    - id
+    -id_type_partenaire
+    - nom_partenaire
+    - description_partenaire
     - commentaire
 
-Mouvement_Produit :
+Mouvement_Partenaire :
     - id
-    - id_produit
+    - id_partenaire
     - date_changement
     - durre_maximale
     - durre_minimale
@@ -17,7 +22,7 @@ Mouvement_Produit :
 
 FondInvestiParClient :
     - id
-    - id_produit_investi
+    - id_partenaire
     - id_client
     - montant_investi
     - date_investissement

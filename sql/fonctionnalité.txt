@@ -16,17 +16,17 @@ Admin :
                         * montant =  + montant investi
                         * date_mouvement = date ==  null ? aujourd'hui : date
                 - FondInvestiParClient :
-                        * id_produit_investi
+                        * id_partenaire
                         * montant_investi = motant
                         * date_investissement = date ==  null ? aujourd'hui : date
                 *** Regle de Gestion :
                     - Possible si :
                         - Etats compte banque client  à la date >= montant
-                        => Produit_investi = date_changement (Mouvement_Produit) = id_produit
-                        - Produit_investi.durre_maximale >= durre
-                            &&  Produit_investi.durre_minimal <= durre
-                            &&  Produit_investi.depot_minimum <= montant
-                            &&  Produit_investi.depot_maximal >= montant
+                        => Partenaire = date_changement (Mouvement_Produit) = id_produit
+                        - Partenaire.durre_maximale >= durre
+                            &&  Partenaire.durre_minimal <= durre
+                            &&  Partenaire.depot_minimum <= montant
+                            &&  Partenaire.depot_maximal >= montant
                         - Unique Investissement Produit Client
 
     - cree un contrat :
@@ -107,7 +107,7 @@ Admin :
 
     - Liste PretClient / FondInvestiParClient :
         => Filtre :
-            Par TypePret /  Produit_investi,
+            Par TypePret /  Partenaire,
             Date de creation
 
     - Tableau et graphe des intérêt par pret par EF :
@@ -161,12 +161,12 @@ Admin :
         -
 
 
-
-
     EXTRA
     - Consulter le solde :
         MouvementCompteBancaireEtablissement
 
     - Fiche PretClient / FondInvestiParClient :
         PretClient: Join contrat Join Retour Pret
-        Fond : Produit_investi
+        Fond : Partenaire
+
+    Retour
