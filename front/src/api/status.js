@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Calculate and display balance
     const calculateBalance = (transactions) => {
-        
+
         const balance = transactions.reduce((sum, t) => {
-            return t.type_mouvement === "deposit" ? sum + parseFloat(t.montant) : sum - parseFloat(t.montant);
+            return sum + parseFloat(t.montant) ;
         }, 0);
         document.getElementById("clientBalance").textContent = `${balance.toFixed(2)} EUR`;
         document.getElementById("finalBalance").textContent = `${balance.toFixed(2)} EUR`;

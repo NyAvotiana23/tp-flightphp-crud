@@ -24,7 +24,10 @@ function createCard(produit) {
             </div>
             <div class="flex flex-col gap-2">
                 <a href="investissement-client.php" class="w-full bg-custom-purple-primary hover:bg-custom-purple-secondary text-white font-medium py-2 px-4 rounded-md text-base">
-                    Voir Détails
+                    Voir Détails 
+                </a>
+                <a href="client.php" class="w-full bg-custom-purple-primary hover:bg-custom-purple-secondary text-white font-medium py-2 px-4 rounded-md text-base">
+                    Connecter vous d'abord
                 </a>
                 ${investirButton}
             </div>
