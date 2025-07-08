@@ -20,7 +20,8 @@ function createCard(produit) {
             <p class="text-custom-sm text-gray-600 mb-2">Statut: ${produit.statut_produit || 'Actif'}</p>
             <p class="text-base text-custom-black mb-4">${produit.description_partenaire || 'Pas de description.'}</p>
             <div class="border-t pt-4">
-                <h4 class="text-h5 font-medium text-custom-black">Informations</h4>
+                
+                <h4 class="text-h5 font-medium text-custom-black">Informations - Taux anuel : ${produit.taux_annuel}</h4>
                 ${produit.commentaire ? `<p class="text-custom-sm text-gray-600 mt-2">${produit.commentaire}</p>` : ''}
             </div>
             <div class="flex flex-col gap-2">

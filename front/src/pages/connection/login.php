@@ -32,6 +32,7 @@ include("../section/head.php");
                     <input
                             type="text"
                             id="numero"
+                            value="Admin"
                             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple-primary text-base"
                             placeholder="Entrez votre numéro"
                     >
@@ -41,6 +42,7 @@ include("../section/head.php");
                     <input
                             type="password"
                             id="password"
+                            value="Admin"
                             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-custom-purple-primary text-base"
                             placeholder="Entrez votre mot de passe"
                     >
