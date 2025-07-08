@@ -116,6 +116,7 @@ document.getElementById('showSimulation').addEventListener('click', () => {
                 </tr>`;
             data.push({ rem, interest, cap, insurance, total });
             date_debut = new Date(date_debut.setMonth(date_debut.getMonth() + 1));
+            date_debut = date_debut.toISOString().split('T')[0];
             rem -= cap;
         }
 
