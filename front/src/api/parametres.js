@@ -1,7 +1,7 @@
 import { ajax } from './ajax.js';
 
 // Configuration for each section
-const sections = {
+export const sections = {
     'bank-movement-types': {
         endpoint: '/types-mouvements-bancaires',
         fields: [

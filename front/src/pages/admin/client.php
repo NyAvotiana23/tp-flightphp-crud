@@ -46,16 +46,6 @@ include("../section/navbar.php");
                 </tr>
                 </thead>
                 <tbody id="clientList">
-                <!-- Example Client Row -->
-                <tr class="border-b border-custom-purple-secondary hover:bg-custom-gray-purple cursor-pointer" onclick="showClientDetails(1)">
-                    <td class="p-3">C001</td>
-                    <td class="p-3">Dupont</td>
-                    <td class="p-3">Jean</td>
-                    <td class="p-3">jean.dupont@example.com</td>
-                    <td class="p-3">
-                        <button class="text-custom-purple-primary hover:underline">Voir détails</button>
-                    </td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -93,6 +83,5 @@ include("../section/navbar.php");
         </div>
     </div>
 </div>
-<script type='module' src='../../api/ajax.js'></script>
 <script type='module' src='../../api/client.js'></script>
 </body>
