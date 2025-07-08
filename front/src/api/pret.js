@@ -37,9 +37,7 @@ function loadMonthlyInterests() {
 
         // Render chart
         const ctx = document.getElementById('monthlyInterestChart').getContext('2d');
-        if (window.monthlyInterestChart) {
-            window.monthlyInterestChart.destroy();
-        }
+
         window.monthlyInterestChart = new Chart(ctx, {
             type: 'line',
             data: {
