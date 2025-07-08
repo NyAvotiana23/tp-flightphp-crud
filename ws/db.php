@@ -2,7 +2,7 @@
 
 function getDB() {
     $host = '127.0.0.1';
-    $dbname = 'db_s2_etu003115';
+    $dbname = 'EF';
     $username = 'root';
     $password = '';
 

@@ -22,7 +22,7 @@ include("../section/navbar.php");
                 <input type="date" id="monthly_interest_end_date" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
             </div>
             <div class="flex items-end">
-                <button onclick="loadMonthlyInterests" id="showMonthlyInterestsBtn" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Afficher les intérêts mensuels</button>
+                <button id="showMonthlyInterestsBtn" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Afficher les intérêts mensuels</button>
             </div>
         </div>
 

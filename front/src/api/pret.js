@@ -1,5 +1,5 @@
 import { ajax } from './ajax.js';
-import { apiBase } from "./ajax.js";
+import { apiBase } from './ajax.js';
 
 function loadMonthlyInterests() {
     const startDate = document.getElementById('monthly_interest_start_date').value;
@@ -146,7 +146,7 @@ function filterLoans() {
         id_status_contrat: document.getElementById('id_status_contrat').value
     };
 
-    ajax('POST', '/pret-clients/filter', filters, (loans) => {
+    ajax('POST', '/prets-clients/filter', filters, (loans) => {
         const loanTable = document.getElementById('loanTable');
         loanTable.innerHTML = '';
         loans.forEach(loan => {
@@ -167,7 +167,6 @@ function filterLoans() {
     });
 }
 
-// Fetch and display loan details
 function showLoanDetails(loanId) {
     ajax('GET', `/pret-clients/${loanId}/details`, null, (data) => {
         document.getElementById('loanId').textContent = loanId;
@@ -214,6 +213,7 @@ function closeLoanDetails() {
 window.onload = () => {
     loadFilterOptions();
     filterLoans();
+    document.getElementById('showMonthlyInterestsBtn').addEventListener('click', loadMonthlyInterests);
 };
 
 // Navbar scroll effect

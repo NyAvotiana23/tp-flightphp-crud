@@ -18,6 +18,7 @@ require_once __DIR__ . '/../controllers/StatusContratController.php';
 require_once __DIR__ . '/../controllers/MouvementStatusContratController.php';
 require_once __DIR__ . '/../controllers/TypePartenaireController.php';
 require_once __DIR__ . '/../controllers/PartenaireController.php';
+require_once __DIR__ . '/../controllers/PretClientController.php';
 require_once __DIR__ . '/../controllers/EtablissementFinancierController.php';
 
 Flight::route('GET /clients', ['ClientController', 'getAll']);
@@ -106,6 +107,7 @@ Flight::route('POST /contrats-prets/@id/approve', ['ContratPretController', 'app
 Flight::route('POST /contrats-prets/@id/reject', ['ContratPretController', 'reject']);
 
 Flight::route('GET /prets-clients', ['PretClientController', 'getAll']);
+Flight::route('POST /prets-clients/filter', ['PretClientController', 'filterLoans']);
 Flight::route('GET /prets-clients/@id', ['PretClientController', 'getById']);
 Flight::route('POST /prets-clients', ['PretClientController', 'create']);
 Flight::route('PUT /prets-clients/@id', ['PretClientController', 'update']);
@@ -165,6 +167,5 @@ Flight::route('PUT /etudiants/@id', ['EtudiantController', 'update']);
 Flight::route('DELETE /etudiants/@id', ['EtudiantController', 'delete']);
 
 // Additional routes
-Flight::route('POST /pret-clients/filter', ['PretClientController', 'filterLoans']);
 Flight::route('GET /pret-clients/@id/details', ['PretClientController', 'getLoanDetails']);
 ?>
