@@ -73,6 +73,8 @@ class PretClientController {
 
         $sql = "
             SELECT 
+                client.nom as client_nom,
+                client.prenom as client_prenom,
                 pc.*, 
                 cp.id_type_pret, cp.id_type_remboursement, cp.id AS contrat_id, cp.uuid, 
                 cp.taux_interet_annuel, cp.taux_assurance_annuel, cp.duree_remboursement_mois, 
@@ -81,6 +83,7 @@ class PretClientController {
                 sc.libelle AS status_libelle, msc.date_mouvement AS status_date
             FROM EF_prets_clients pc
             RIGHT JOIN EF_contrats_prets cp ON pc.id_contrat_pret = cp.id
+                JOIN ef_clients client on cp.id_client = client.id
             INNER JOIN EF_types_prets tp ON cp.id_type_pret = tp.id
             INNER JOIN EF_types_remboursements tr ON cp.id_type_remboursement = tr.id
             LEFT JOIN (
