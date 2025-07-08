@@ -39,10 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const transactionList = document.getElementById("transactionList");
             transactionList.innerHTML = "";
             transactions.forEach(t => {
+                console.log(t);
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td class="p-3">${t.date_mouvement}</td>
-                    <td class="p-3">${t.type_mouvement}</td>
+                    <td class="p-3">${t.id_type_mouvement}</td>
                     <td class="p-3">${parseFloat(t.montant).toFixed(2)} EUR</td>
                     <td class="p-3">${t.description || ''}</td>
                 `;
