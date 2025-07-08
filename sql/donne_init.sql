@@ -1,10 +1,11 @@
--- Inserting data into EF_type_partenaire
-INSERT INTO EF_type_partenaire (designation) VALUES
-         ('Banque'),
-         ('Société d\'investissement'),
-         ('Coopérative');
-
 -- Inserting data into EF_partenaire
+INSERT INTO EF_type_partenaire (designation)
+VALUES ('Fonds d’investissement'),
+       ('Banque partenaire'),
+       ('Assurance'),
+       ('Société de gestion');
+
+
 INSERT INTO EF_partenaire (id_type_partenaire, nom_partenaire, description_partenaire, commentaire) VALUES
     (1, 'Banque Nationale', 'Banque commerciale principale', 'Partenaire fiable depuis 2005'),
     (2, 'InvestPlus', 'Société d\'investissement spécialisée', 'Focus sur les PME'),

@@ -10,7 +10,7 @@ class Partenaire extends BaseModel {
     {
         $sql = "
             SELECT
-            tp.description as type_partenaire,
+            tp.designation as type_partenaire,
             p.nom_partenaire,
             p.description_partenaire,
             p.commentaire

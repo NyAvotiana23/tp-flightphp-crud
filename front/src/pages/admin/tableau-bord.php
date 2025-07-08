@@ -15,10 +15,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
                 <label for="type-filter" class="block text-base font-medium text-custom-black">Type</label>
-                <select id="type-filter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom-purple-primary focus:ring focus:ring-custom-purple-secondary focus:ring-opacity-50 text-base">
+                <select id="typePartenaire" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom-purple-primary focus:ring focus:ring-custom-purple-secondary focus:ring-opacity-50 text-base">
                     <option value="">Tous</option>
-                    <option value="societe">Société</option>
-                    <option value="entreprise">Entreprise</option>
+
                 </select>
             </div>
             <div>
