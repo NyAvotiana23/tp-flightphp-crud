@@ -12,7 +12,7 @@ class FondInvestiClient extends BaseModel {
         $sql = " 
             SELECT 
             p.nom_partenaire,
-            tp.description as type,
+            tp.designation as type,
             cl.nom,
             ficl.montant_investi,
             ficl.date_investissement

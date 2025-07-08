@@ -11,7 +11,7 @@ function fillTypePartenaireSelect(data) {
     data.forEach(type => {
         const option = document.createElement('option');
         option.value = type.id;
-        option.textContent = type.description;
+        option.textContent = type.designation;
         option.style.color = '#000';
         select.appendChild(option);
     });
