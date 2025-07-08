@@ -25,7 +25,6 @@ class MouvementBancaireClientController {
     public static function update($id) {
         $model = new MouvementBancaireClient();
         $data = Flight::request()->data->getData();
-
         $model->update($id, $data);
         Flight::json(['message' => 'Mouvement bancaire client modifié']);
     }
@@ -35,4 +34,13 @@ class MouvementBancaireClientController {
         $model->delete($id);
         Flight::json(['message' => 'Mouvement bancaire client supprimé']);
     }
+
+    public static function filterMovements() {
+        $model = new MouvementBancaireClient();
+        $data = Flight::request()->data->getData();
+        $conditions = $data['conditions'] ?? [];
+        $items = $model->filter($conditions);
+        Flight::json($items);
+    }
 }
+?>

@@ -37,9 +37,8 @@ function showClientDetails(client) {
     document.getElementById('clientDOB').textContent = client.date_naissance || 'Non renseignée';
     document.getElementById('clientEmail').textContent = client.email;
     document.getElementById('clientAddress').textContent = client.adresse || 'Non renseignée';
-    document.getElementById('clientContact').textContent = client.contact || 'Non renseigné';
+    document.getElementById('clientContact').textContent = client.telephone || 'Non renseigné';
 
-    // Pré-remplir le champ du numéro dans le formulaire
     document.getElementById('modalClientNumber').value = client.numero_client;
 
     document.getElementById('clientModal').classList.remove('hidden');
@@ -50,11 +49,49 @@ function closeClientDetails() {
 }
 
 function handleError(error) {
-    console.error("Erreur lors du chargement des clients :", error);
+    console.error("Erreur :", error);
+    alert("Une erreur est survenue : " + error);
+}
+
+function onSubmitClient(event) {
+    event.preventDefault();
+    const clientNumber = event.target.querySelector('#clientNumber')?.value || event.target.querySelector('#modalClientNumber')?.value;
+    const password = event.target.querySelector('#password')?.value || event.target.querySelector('#modalPassword')?.value;
+
+    ajax('POST', '/clients/login', { numero_client: clientNumber, mot_de_passe: password }, (response) => {
+        if (response) {
+            localStorage.setItem('client', JSON.stringify(response));
+            window.location.href = 'status.php';
+        } else {
+            alert('Échec de la connexion : Numéro client ou mot de passe incorrect');
+        }
+    }, handleError);
+}
+
+function onSubmitCreateClient(event) {
+    event.preventDefault();
+    const clientData = {
+        numero_client: document.getElementById('newClientNumber').value,
+        mot_de_passe: document.getElementById('newPassword').value,
+        nom: document.getElementById('newLastName').value,
+        prenom: document.getElementById('newFirstName').value,
+        date_naissance: document.getElementById('newDOB').value,
+        email: document.getElementById('newEmail').value,
+        adresse: document.getElementById('newAddress').value || null,
+        telephone: document.getElementById('newTelephone').value || null
+    };
+
+    ajax('POST', '/clients', clientData, (response) => {
+        alert('Client créé avec succès !');
+        document.querySelector('form[onsubmit="onSubmitCreateClient(event)"]').reset();
+        ajax('GET', '/clients', null, fillClientTable, handleError);
+    }, handleError);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     ajax('GET', '/clients', null, fillClientTable, handleError);
     window.showClientDetails = showClientDetails;
     window.closeClientDetails = closeClientDetails;
+    window.onSubmitClient = onSubmitClient;
+    window.onSubmitCreateClient = onSubmitCreateClient;
 });

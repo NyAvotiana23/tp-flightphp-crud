@@ -21,7 +21,7 @@ function createCard(produit) {
     document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("cards-container");
 
-        ajax("GET", "/produits-investissements", null, (data) => {
+        ajax("GET", "/partenaire", null, (data) => {
             if (data.length === 0) {
                 container.innerHTML = `<p class="text-gray-500 col-span-3">Aucun produit disponible.</p>`;
                 return;

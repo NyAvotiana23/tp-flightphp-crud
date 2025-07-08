@@ -25,7 +25,6 @@ class ClientController {
     public static function update($id) {
         $model = new Client();
         $data = Flight::request()->data->getData();
-
         $model->update($id, $data);
         Flight::json(['message' => 'Client modifié']);
     }
@@ -36,9 +35,20 @@ class ClientController {
         Flight::json(['message' => 'Client supprimé']);
     }
 
-    public static function login($numeroClient, $motDePasse)
-    {
+    public static function login() {
         $model = new Client();
-        return $model->login($numeroClient, $motDePasse);
+        $data = Flight::request()->data->getData();
+        $numeroClient = $data['numero_client'] ?? null;
+        $motDePasse = $data['mot_de_passe'] ?? null;
+        if (!$numeroClient || !$motDePasse) {
+            Flight::halt(400, json_encode(['error' => 'Numéro client et mot de passe requis']));
+        }
+        $result = $model->login($numeroClient, $motDePasse);
+        if ($result) {
+            unset($result['mot_de_passe']); // Remove password from response
+            Flight::json($result);
+        } else {
+            Flight::halt(401, json_encode(['error' => 'Numéro client ou mot de passe incorrect']));
+        }
     }
 }
