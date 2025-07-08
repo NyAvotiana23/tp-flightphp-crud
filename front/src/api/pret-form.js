@@ -1,4 +1,4 @@
-import { ajax } from './ajax.js';
+import {ajax} from './ajax.js';
 
 // Utility functions
 const formatDate = (date) => date.toISOString().split('T')[0];
@@ -74,7 +74,7 @@ const generateSimulation = async (loanAmount, repaymentTypeId, loanDuration, int
                     <td class="p-3">${insurance.toFixed(2)}</td>
                     <td class="p-3">${total.toFixed(2)}</td>
                 </tr>`;
-            data.push({ rem, interest, cap, insurance, total });
+            data.push({rem, interest, cap, insurance, total});
             date_debut = addMonths(date_debut, 12 / freq);
             rem -= cap;
         }
@@ -90,25 +90,46 @@ const generateSimulation = async (loanAmount, repaymentTypeId, loanDuration, int
             data: {
                 labels: data.map((_, i) => `Période ${i + 1}`),
                 datasets: [
-                    { label: 'Capital restant dû', data: data.map(d => d.rem), borderColor: '#8B5CF6', backgroundColor: 'rgba(139, 92, 246, 0.2)', fill: false, tension: 0.1 },
-                    { label: 'Intérêts', data: data.map(d => d.interest), borderColor: '#A78BFA', backgroundColor: 'rgba(167, 139, 250, 0.2)', fill: false, tension: 0.1 },
-                    { label: 'Assurance', data: data.map(d => d.insurance), borderColor: '#6B7280', backgroundColor: 'rgba(107, 114, 128, 0.2)', fill: false, tension: 0.1 }
+                    {
+                        label: 'Capital restant dû',
+                        data: data.map(d => d.rem),
+                        borderColor: '#8B5CF6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Intérêts',
+                        data: data.map(d => d.interest),
+                        borderColor: '#A78BFA',
+                        backgroundColor: 'rgba(167, 139, 250, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Assurance',
+                        data: data.map(d => d.insurance),
+                        borderColor: '#6B7280',
+                        backgroundColor: 'rgba(107, 114, 128, 0.2)',
+                        fill: false,
+                        tension: 0.1
+                    }
                 ]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { mode: 'index', intersect: false }
+                    legend: {position: 'top'},
+                    tooltip: {mode: 'index', intersect: false}
                 },
                 scales: {
-                    x: { title: { display: true, text: 'Période' } },
-                    y: { title: { display: true, text: 'Montant (€)' }, beginAtZero: true }
+                    x: {title: {display: true, text: 'Période'}},
+                    y: {title: {display: true, text: 'Montant (€)'}, beginAtZero: true}
                 }
             }
         });
 
-        return { monthlyPayment, date_debut: formatDate(addMonths(new Date(), repaymentDelay)) };
+        return {monthlyPayment, date_debut: formatDate(addMonths(new Date(), repaymentDelay))};
     } catch (err) {
         showFeedback('Erreur lors de la génération de la simulation: ' + err);
         throw err;
@@ -157,7 +178,7 @@ document.getElementById('loanForm').addEventListener('submit', async e => {
             id_client: formData.clientId,
             id_type_remboursement: formData.repaymentTypeId,
             id_type_pret: formData.loanTypeId,
-            uuid: crypto.randomUUID(),
+            uuid: formData.clientId + "/" + formData.loanAmount,
             taux_interet_annuel: formData.interestRate,
             taux_assurance_annuel: formData.insuranceRate,
             duree_remboursement_mois: formData.loanDuration,
@@ -194,7 +215,10 @@ document.getElementById('acceptContract').addEventListener('click', async () => 
     const delay = +document.getElementById('contractDelay').textContent;
     try {
         await new Promise((resolve, reject) => {
-            ajax('POST', `/contrats-prets/${cid}/approve`, { date: formatDate(new Date()), delai_remboursement: delay }, resolve, reject);
+            ajax('POST', `/contrats-prets/${cid}/approve`, {
+                date: formatDate(new Date()),
+                delai_remboursement: delay
+            }, resolve, reject);
         });
         showFeedback('Contrat validé !', 'success');
         document.getElementById('contractSection').classList.add('hidden');
