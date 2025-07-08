@@ -148,6 +148,7 @@ include("../section/footer.php");
 
 <script type="module"  src="../../api/pret.js">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
 ?>
