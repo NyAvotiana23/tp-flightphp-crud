@@ -82,11 +82,8 @@ include("../section/navbar.php");
             <div>
                 <label for="movementType" class="block text-h6 font-medium mb-2">Type de Mouvement</label>
                 <select id="movementType" class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
-                    <option value="all">Tous</option>
-                    <option value="deposit">Dépôt</option>
-                    <option value="withdrawal">Retrait</option>
-                    <option value="loan">Prêt</option>
-                    <option value="investment">Investissement</option>
+                    <option value="">Tous</option>
+
                 </select>
             </div>
             <button id="filterTransactions" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Filtrer</button>
