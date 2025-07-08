@@ -86,7 +86,7 @@ document.getElementById('showSimulation').addEventListener('click', () => {
     const interestRate = +document.getElementById('contractInterestRate').textContent;
     const insuranceRate = +document.getElementById('contractInsuranceRate').textContent;
     const monthlyPayment = +document.getElementById('contractMonthlyPayment').textContent;
-    const delay = +document.getElementById('repaymentDelay').textContent;
+    const delay = +document.getElementById('contractDelay').textContent;
 
     const aujourdHui = new Date();
     let date_debut = new Date(aujourdHui.setMonth(aujourdHui.getMonth() + delay));
