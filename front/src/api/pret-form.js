@@ -93,8 +93,8 @@ document.getElementById('showSimulation').addEventListener('click', () => {
 
     ajax('GET', `/types-remboursements/${repaymentTypeId}`, null, r => {
         const freq = r.repetition_annuelle;
-        const pi = interestRate/100/freq;
-        const psi = insuranceRate/100/freq;
+        const pi = interestRate / 100 / freq;
+        const psi = insuranceRate / 100 / freq;
         let rem = loanAmount;
         const data = [];
         let rows = '';
@@ -103,11 +103,13 @@ document.getElementById('showSimulation').addEventListener('click', () => {
             const interest = rem * pi;
             const insurance = psi * loanAmount;
             let cap = monthlyPayment - interest;
-            if(i===loanDuration && rem-cap<0.01) cap = rem;
+            if (i === loanDuration && rem - cap < 0.01) cap = rem;
             const total = monthlyPayment + insurance;
+            // Format date for display only
+            const formattedDate = date_debut.toISOString().split('T')[0];
             rows += `<tr>
                     <td class="p-3">${i}</td>
-                    <td class="p-3">${date_debut}</td>
+                    <td class="p-3">${formattedDate}</td>
                     <td class="p-3">${rem.toFixed(2)}</td>
                     <td class="p-3">${interest.toFixed(2)}</td>
                     <td class="p-3">${cap.toFixed(2)}</td>
@@ -115,8 +117,8 @@ document.getElementById('showSimulation').addEventListener('click', () => {
                     <td class="p-3">${total.toFixed(2)}</td>
                 </tr>`;
             data.push({ rem, interest, cap, insurance, total });
-            date_debut = new Date(date_debut.setMonth(date_debut.getMonth() + 1));
-            date_debut = date_debut.toISOString().split('T')[0];
+            // Keep date_debut as a Date object and increment month
+            date_debut.setMonth(date_debut.getMonth() + 1);
             rem -= cap;
         }
 
@@ -127,11 +129,14 @@ document.getElementById('showSimulation').addEventListener('click', () => {
         if (window.amortChart) window.amortChart.destroy();
         window.amortChart = new Chart(ctx, {
             type: 'line',
-            data: { labels: data.map((_,i)=>i+1), datasets: [
-                    { label: 'Capital restant dû', data: data.map(d=>d.rem), borderColor: '#8B5CF6', fill: false },
-                    { label: 'Intérêts', data: data.map(d=>d.interest), borderColor: '#A78BFA', fill: false },
-                    { label: 'Assurance', data: data.map(d=>d.insurance), borderColor: '#6B7280', fill: false }
-                ]}
+            data: {
+                labels: data.map((_, i) => i + 1),
+                datasets: [
+                    { label: 'Capital restant dû', data: data.map(d => d.rem), borderColor: '#8B5CF6', fill: false },
+                    { label: 'Intérêts', data: data.map(d => d.interest), borderColor: '#A78BFA', fill: false },
+                    { label: 'Assurance', data: data.map(d => d.insurance), borderColor: '#6B7280', fill: false }
+                ]
+            }
         });
-    }, err => alert('Erreur simulation: '+err));
+    }, err => alert('Erreur simulation: ' + err));
 });
