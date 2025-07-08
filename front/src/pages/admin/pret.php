@@ -96,8 +96,8 @@ include("../section/navbar.php");
     </div>
 
     <!-- Floating Loan Details -->
-    <div id="loanDetails" class="hidden fixed top-0 right-0 h-full w-1/3 bg-white shadow-xl p-6 overflow-y-auto mt-1">
-        <button id="closerButton" class="text-custom-black text-h5 font-semibold mb-4">Fermer</button>
+    <div id="loanDetails" class="hidden fixed top-0 right-0 h-full w-1/3 bg-white shadow-xl p-6 overflow-y-auto mt-16">
+        <button id="closerButton" class="bg-custom-purple-primary text-white text-h5 font-semibold mb-4">Fermer</button>
         <h2 class="text-h2 font-semibold text-custom-black mb-4">Détails du Prêt #<span id="loanId"></span></h2>
         <div class="mb-6">
             <h3 class="text-h4 font-semibold text-custom-black">Contrat</h3>
