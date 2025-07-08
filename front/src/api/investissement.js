@@ -41,7 +41,7 @@ function fillInvestissementsTable(data) {
         return;
     }
 
-    tbody.innerHTML = ''; // Vider le tableau avant d'ajouter
+    tbody.innerHTML = ''; 
 
     data.forEach(invest => {
         const tr = document.createElement('tr');
@@ -66,7 +66,7 @@ function fillPartenaireDetailsSection(data) {
 
     if (!Array.isArray(data)) return;
 
-    section.innerHTML = ''; // Vide les anciennes cartes
+    section.innerHTML = ''; 
 
     data.forEach(partenaire => {
         const div = document.createElement('div');

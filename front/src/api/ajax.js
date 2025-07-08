@@ -40,7 +40,6 @@ export function ajax(method, url, data, callback, errorCallback) {
         }
     };
 
-    // Prepare data based on method
     let requestData = null;
     if (data) {
         if (method === 'POST' || method === 'PUT') {
