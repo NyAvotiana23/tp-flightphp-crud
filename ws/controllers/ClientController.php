@@ -34,4 +34,10 @@ class ClientController {
         $model->delete($id);
         Flight::json(['message' => 'Client supprimé']);
     }
+
+    public static function login($numeroClient, $motDePasse)
+    {
+        $model = new Client();
+        return $model->login($numeroClient, $motDePasse);
+    }
 }

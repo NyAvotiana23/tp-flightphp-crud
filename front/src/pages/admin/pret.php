@@ -114,7 +114,7 @@ include("../section/footer.php");
 ?>
 
 <script type="module">
-    const apiBase = "http://localhost/Tp%20Final%20S4/tp-flightphp-crud/ws";
+    const apiBase = "http://localhost/tp-flightphp-crud/ws";
 
     function ajax(method, url, data, callback, errorCallback) {
         const xhr = new XMLHttpRequest();

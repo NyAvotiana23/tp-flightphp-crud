@@ -42,51 +42,60 @@ class PretClientController {
         $conditions = [];
         $params = [];
 
-        // Filter by date_debut_pret
         if (!empty($data['date_debut_pret'])) {
             $conditions[] = "pc.date_debut_pret = ?";
             $params[] = $data['date_debut_pret'];
         }
 
-        // Filter by date_fin_prevue_pret
         if (!empty($data['date_fin_prevue_pret'])) {
             $conditions[] = "pc.date_fin_prevue_pret = ?";
             $params[] = $data['date_fin_prevue_pret'];
         }
 
-        // Filter by loan type (id_type_pret)
         if (!empty($data['id_type_pret'])) {
             $conditions[] = "cp.id_type_pret = ?";
             $params[] = $data['id_type_pret'];
         }
 
-        // Filter by repayment type (id_type_remboursement)
         if (!empty($data['id_type_remboursement'])) {
             $conditions[] = "cp.id_type_remboursement = ?";
             $params[] = $data['id_type_remboursement'];
         }
 
-        // Filter by status (id_status_contrat)
         if (!empty($data['id_status_contrat'])) {
             $conditions[] = "msc.id_status_contrat = ?";
             $params[] = $data['id_status_contrat'];
         }
 
-        // Build the SQL query with joins
         $whereClause = !empty($conditions) ? 'WHERE ' . implode(' AND ', $conditions) : '';
+
         $sql = "
-            SELECT pc.*, cp.id_type_pret, cp.id_type_remboursement, cp.id as contrat_id, cp.uuid, cp.taux_interet_annuel, 
-                   cp.taux_assurance_annuel, cp.duree_remboursement_mois, cp.montant_pret, cp.montant_echeance,
-                   tp.nom_type_pret, tr.nom_type_remboursement, sc.libelle as status_libelle, msc.date_mouvement as status_date
+            SELECT 
+                pc.*, 
+                cp.id_type_pret, cp.id_type_remboursement, cp.id AS contrat_id, cp.uuid, 
+                cp.taux_interet_annuel, cp.taux_assurance_annuel, cp.duree_remboursement_mois, 
+                cp.montant_pret, cp.montant_echeance,
+                tp.nom_type_pret, tr.nom_type_remboursement, 
+                sc.libelle AS status_libelle, msc.date_mouvement AS status_date
             FROM EF_prets_clients pc
             INNER JOIN EF_contrats_prets cp ON pc.id_contrat_pret = cp.id
             INNER JOIN EF_types_prets tp ON cp.id_type_pret = tp.id
             INNER JOIN EF_types_remboursements tr ON cp.id_type_remboursement = tr.id
-            LEFT JOIN EF_mouvement_status_contrat msc ON cp.id = msc.id_contrat_pret
+            LEFT JOIN (
+                SELECT *
+                FROM (
+                    SELECT 
+                        msc.*,
+                        ROW_NUMBER() OVER (PARTITION BY msc.id_contrat_pret ORDER BY msc.date_mouvement DESC, msc.id DESC) AS rn
+                    FROM EF_mouvement_status_contrat msc
+                ) AS ranked
+                WHERE rn = 1
+            ) AS msc ON cp.id = msc.id_contrat_pret
             LEFT JOIN EF_status_contrat sc ON msc.id_status_contrat = sc.id
             $whereClause
-            ORDER BY pc.id, status_date DESC
+            ORDER BY pc.id DESC
         ";
+
 
         try {
             $result = $model->rawFetch($sql, $params);
