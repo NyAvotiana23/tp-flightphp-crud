@@ -1,4 +1,5 @@
-// Fetch loan types, repayment types, and statuses on page load
+import { ajax } from './ajax.js';
+
 function loadFilterOptions() {
     // Fetch loan types
     ajax('GET', '/types-prets', null, (loanTypes) => {

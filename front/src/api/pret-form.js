@@ -1,3 +1,5 @@
+import { ajax } from './ajax.js';
+
 ajax('GET', '/types-prets', null, res => {
     const sel = document.getElementById('loanType');
     res.forEach(t => sel.appendChild(new Option(`${t.nom_type_pret} (${t.taux_interet_min_annuel}%–${t.taux_interet_max_annuel}%)`, t.id)));

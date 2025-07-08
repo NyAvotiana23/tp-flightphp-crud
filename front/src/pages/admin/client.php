@@ -93,6 +93,6 @@ include("../section/navbar.php");
         </div>
     </div>
 </div>
-
+<script type='module' src='../../api/ajax.js'></script>
 <script type='module' src='../../api/client.js'></script>
 </body>

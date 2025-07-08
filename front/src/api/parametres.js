@@ -1,3 +1,4 @@
+import { ajax } from './ajax.js';
 
 // Configuration for each section
 const sections = {
