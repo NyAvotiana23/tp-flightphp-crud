@@ -43,8 +43,6 @@ include("../section/navbar.php");
             <button onclick="filterLoans()" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Appliquer les filtres</button>
             =>> SI LOCAL STORAGE ID_CLIENT NOT NULL <a href="pret-form.php" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Faire un pret</a>
         </div>
-
-
     </div>
 
     <!-- Loan List -->
@@ -87,6 +85,9 @@ include("../section/navbar.php");
             <h3 class="text-h4 font-semibold text-custom-black">Statut</h3>
             <p class="text-base"><strong>Statut actuel:</strong> <span id="contractStatus"></span></p>
             <p class="text-base"><strong>Date statut:</strong> <span id="statusDate"></span></p>
+        </div>
+        <div class="mb-6">
+            <a id="downloadPdfLink" href="#" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Télécharger PDF</a>
         </div>
         <div>
             <h3 class="text-h4 font-semibold text-custom-black">Historique des remboursements</h3>
@@ -260,6 +261,7 @@ include("../section/footer.php");
             document.getElementById('loanType').textContent = data.contract.loanType;
             document.getElementById('contractStatus').textContent = data.status ? data.status.libelle : 'N/A';
             document.getElementById('statusDate').textContent = data.status ? data.status.date : 'N/A';
+            document.getElementById('downloadPdfLink').href = `${apiBase}/prets-clients/${loanId}/pdf`;
 
             const repaymentTable = document.getElementById('repaymentTable');
             repaymentTable.innerHTML = '';
@@ -304,3 +306,4 @@ include("../section/footer.php");
 </script>
 </body>
 </html>
+?>
