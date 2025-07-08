@@ -128,16 +128,12 @@ Flight::route('POST /type-partenaire', ['TypePartenaireController', 'create']);
 Flight::route('PUT /type-partenaire/@id', ['TypePartenaireController', 'update']);
 Flight::route('DELETE /type-partenaire/@id', ['TypePartenaireController', 'delete']);
 
-<<<<<<< Updated upstream
 Flight::route('GET /partenaire', ['PartenaireController', 'getAll']);
 Flight::route('GET /partenaire/@id', ['PartenaireController', 'getById']);
 Flight::route('POST /partenaire', ['PartenaireController', 'create']);
 Flight::route('PUT /partenaire/@id', ['PartenaireController', 'update']);
 Flight::route('DELETE /partenaire/@id', ['PartenaireController', 'delete']);
 
-=======
-// Fonds investis clients
->>>>>>> Stashed changes
 Flight::route('GET /fonds-investis-clients', ['FondInvestiClientController', 'getAll']);
 Flight::route('GET /fonds-investis-clients/@id', ['FondInvestiClientController', 'getById']);
 Flight::route('POST /fonds-investis-clients', ['FondInvestiClientController', 'create']);
