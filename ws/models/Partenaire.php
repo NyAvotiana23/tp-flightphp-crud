@@ -10,6 +10,7 @@ class Partenaire extends BaseModel {
     {
         $sql = "
             SELECT
+                p.id as id,
             tp.designation as type_partenaire,
             p.nom_partenaire,
             p.description_partenaire,

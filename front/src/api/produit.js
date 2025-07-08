@@ -6,6 +6,7 @@ ajax('GET', '/type-partenaire', null, res => {
 });
 
 function createCard(produit) {
+    console.log(produit);
     const client = localStorage.getItem('client') ? JSON.parse(localStorage.getItem('client')) : null;
     const investirButton = client ? `
         <button class="investir-btn mt-2 w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md text-base" data-partenaire-id="${produit.id}">
