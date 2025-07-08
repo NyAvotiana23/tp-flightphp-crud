@@ -2,7 +2,7 @@
 
 function getDB() {
     $host = '127.0.0.1';
-    $dbname = 'EF';
+    $dbname = 'db_s2_etu003115';
     $username = 'root';
     $password = '';
 
@@ -14,4 +14,3 @@ function getDB() {
         die(json_encode(['error' => $e->getMessage()]));
     }
 }
-

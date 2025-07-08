@@ -69,7 +69,7 @@
             <p><strong>Durée:</strong> <span id="contractDuration"></span> mois</p>
             <p><strong>Taux d'intérêt annuel:</strong> <span id="contractInterestRate"></span>%</p>
             <p><strong>Taux d'assurance:</strong> <span id="contractInsuranceRate"></span>%</p>
-            <p><strong>Délai de remboursement:</strong> <span id="contractDelay"></span> jours</p>
+            <p><strong>Délai de remboursement:</strong> <span id="contractDelay"></span> mois</p>
             <p><strong>Mensualité estimée:</strong> <span id="contractMonthlyPayment"></span> €</p>
         </div>
         <div class="flex space-x-4 mt-6">
@@ -93,6 +93,7 @@
                 <thead>
                 <tr class="bg-custom-purple-secondary text-white">
                     <th class="p-3 text-left">Période</th>
+                    <th class="p-3 text-left">Date Remboursement</th>
                     <th class="p-3 text-left">Capital restant dû (€)</th>
                     <th class="p-3 text-left">Intérêts (€)</th>
                     <th class="p-3 text-left">Capital remboursé (€)</th>
