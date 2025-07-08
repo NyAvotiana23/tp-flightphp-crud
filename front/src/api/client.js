@@ -1,5 +1,7 @@
 import {ajax} from './ajax.js';
 
+const client = localStorage.getItem('client') ? JSON.parse(localStorage.getItem('client')) : null;
+
 
 function filterClients(event) {
     event.preventDefault();
