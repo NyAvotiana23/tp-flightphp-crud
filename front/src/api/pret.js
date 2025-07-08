@@ -1,5 +1,5 @@
 import { ajax } from './ajax.js';
-import { apiBase } from "./ajax.js";
+import { apiBase } from './ajax.js';
 
 function loadMonthlyInterests() {
     const startDate = document.getElementById('monthly_interest_start_date').value;
