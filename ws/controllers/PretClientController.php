@@ -79,7 +79,7 @@ class PretClientController {
                 tp.nom_type_pret, tr.nom_type_remboursement, 
                 sc.libelle AS status_libelle, msc.date_mouvement AS status_date
             FROM EF_prets_clients pc
-            INNER JOIN EF_contrats_prets cp ON pc.id_contrat_pret = cp.id
+            RIGHT JOIN EF_contrats_prets cp ON pc.id_contrat_pret = cp.id
             INNER JOIN EF_types_prets tp ON cp.id_type_pret = tp.id
             INNER JOIN EF_types_remboursements tr ON cp.id_type_remboursement = tr.id
             LEFT JOIN (

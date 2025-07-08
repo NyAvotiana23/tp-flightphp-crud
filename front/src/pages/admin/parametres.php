@@ -135,7 +135,7 @@ include("../section/navbar.php");
 </div>
 
 <script>
-    const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
+    const apiBase = "http://localhost/tp-flightphp-crud/ws";
 
     // AJAX function (provided by user)
     function ajax(method, url, data, callback, errorCallback) {

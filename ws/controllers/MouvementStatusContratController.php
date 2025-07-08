@@ -23,6 +23,11 @@ class MouvementStatusContratController
     {
         $model = new MouvementStatusContrat();
         $data = Flight::request()->data->getData();
+
+        if (!isset($data['date_mouvement']) || empty($data['date_mouvement'])) {
+            $data['date_mouvement'] = date('Y-m-d');
+        }
+
         $saved = $model->create($data);
         Flight::json($saved);
     }

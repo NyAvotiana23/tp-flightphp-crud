@@ -50,7 +50,6 @@ include("../section/navbar.php");
         <table class="w-full text-base">
             <thead>
             <tr class="bg-custom-gray-purple">
-                <th class="p-4 text-left text-custom-black">ID Prêt</th>
                 <th class="p-4 text-left text-custom-black">Client</th>
                 <th class="p-4 text-left text-custom-black">Montant</th>
                 <th class="p-4 text-left text-custom-black">Type</th>
@@ -88,6 +87,7 @@ include("../section/navbar.php");
         </div>
         <div class="mb-6">
             <a id="downloadPdfLink" href="#" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Télécharger PDF</a>
+            <button id="validateContractBtn" class="hidden bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-base">Valider</button>
         </div>
         <div>
             <h3 class="text-h4 font-semibold text-custom-black">Historique des remboursements</h3>
@@ -231,7 +231,6 @@ include("../section/footer.php");
                 row.className = 'hover:bg-custom-gray-purple cursor-pointer';
                 row.onclick = () => showLoanDetails(loan.id);
                 row.innerHTML = `
-                    <td class="p-4">${loan.id}</td>
                     <td class="p-4">${loan.client_prenom} ${loan.client_nom}</td>
                     <td class="p-4">${loan.montant_pret} €</td>
                     <td class="p-4">${loan.nom_type_pret}</td>
@@ -282,6 +281,35 @@ include("../section/footer.php");
         }, (error) => {
             console.error('Erreur lors du chargement des détails du prêt:', error);
         });
+
+        const validateBtn = document.getElementById('validateContractBtn');
+
+        // Vérifie si le statut est "En attente"
+        if (data.status && data.status.libelle === 'En attente') {
+            validateBtn.classList.remove('hidden');
+
+            validateBtn.onclick = () => {
+                // Requête POST vers mouvement-status-contrat
+                const payload = {
+                    id_contrat_pret: data.contract.id,
+                    id_status_contrat: 4 // ← ID correspondant à "Actif", à ajuster si besoin
+                };
+
+                ajax('POST', '/mouvement-status-contrat', payload, (response) => {
+                    alert('Contrat validé avec succès !');
+                    validateBtn.classList.add('hidden');
+                    filterLoans(); // Recharge la liste
+                    closeLoanDetails(); // Ferme les détails
+                }, (error) => {
+                    console.error("Erreur validation contrat:", error);
+                    alert("Échec de la validation.");
+                });
+            };
+        } else {
+            validateBtn.classList.add('hidden');
+        }
+
+
     }
 
     function closeLoanDetails() {

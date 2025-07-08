@@ -29,6 +29,12 @@ Flight::route('POST /clients', ['ClientController', 'create']);
 Flight::route('PUT /clients/@id', ['ClientController', 'update']);
 Flight::route('DELETE /clients/@id', ['ClientController', 'delete']);
 
+Flight::route('GET /mouvement-status-contrat', ['MouvementStatusContratController', 'getAll']);
+Flight::route('GET /mouvement-status-contrat/@id', ['MouvementStatusContratController', 'getById']);
+Flight::route('POST /mouvement-status-contrat', ['MouvementStatusContratController', 'create']);
+Flight::route('PUT /mouvement-status-contrat/@id', ['MouvementStatusContratController', 'update']);
+Flight::route('DELETE /mouvement-status-contrat/@id', ['MouvementStatusContratController', 'delete']);
+
 Flight::route('GET /types-contrats-activite', ['TypeContratActiviteController', 'getAll']);
 Flight::route('GET /types-contrats-activite/@id', ['TypeContratActiviteController', 'getById']);
 Flight::route('POST /types-contrats-activite', ['TypeContratActiviteController', 'create']);

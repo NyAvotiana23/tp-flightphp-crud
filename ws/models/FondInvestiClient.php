@@ -15,11 +15,7 @@ class FondInvestiClient extends BaseModel {
             tp.description as type,
             cl.nom,
             ficl.montant_investi,
-            ficl.date_investissement,
-            ficl.date_echeance_prevue,
-            ficl.taux_rendement_applique,
-            ficl.statut_investissement,
-            ficl.montant_actuel
+            ficl.date_investissement
             FROM
             EF_fonds_investis_clients ficl
             JOIN EF_partenaire p ON ficl.id_partenaire = p.id

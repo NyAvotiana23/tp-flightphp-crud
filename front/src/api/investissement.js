@@ -28,7 +28,7 @@ function fillPartenaireSelect(data) {
     data.forEach(partenaire => {
         const option = document.createElement('option');
         option.value = partenaire.id;
-        option.textContent = partenaire.nom;
+        option.textContent = partenaire.nom_partenaire;
         option.style.color = '#000';
         select.appendChild(option);
     });
@@ -73,9 +73,9 @@ function fillPartenaireDetailsSection(data) {
         div.className = 'bg-white rounded-lg shadow-lg p-6';
 
         div.innerHTML = `
-            <h3 class="text-h4 font-semibold text-custom-black">${partenaire.nom}</h3>
-            <p class="text-base text-custom-black mt-2"><strong>Type:</strong> ${partenaire.type}</p>
-            <p class="text-base text-custom-black mt-2"><strong>Description:</strong> ${partenaire.description}</p>
+            <h3 class="text-h4 font-semibold text-custom-black">${partenaire.nom_partenaire}</h3>
+            <p class="text-base text-custom-black mt-2"><strong>Type:</strong> ${partenaire.type_partenaire}</p>
+            <p class="text-base text-custom-black mt-2"><strong>Description:</strong> ${partenaire.description_partenaire}</p>
             <p class="text-base text-custom-black mt-2"><strong>Commentaire:</strong> ${partenaire.commentaire || '-'}</p>
             <p class="text-base text-custom-black mt-2"><strong>Dépôt Min/Max:</strong> ${partenaire.depot_min} € / ${partenaire.depot_max} €</p>
             <p class="text-base text-custom-black mt-2"><strong>Durée Min/Max:</strong> ${partenaire.duree_min} mois / ${partenaire.duree_max} mois</p>
