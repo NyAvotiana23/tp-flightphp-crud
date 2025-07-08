@@ -8,6 +8,11 @@ ajax('GET', '/types-remboursements', null, res => {
     const sel = document.getElementById('repaymentType');
     res.forEach(t => sel.appendChild(new Option(`${t.nom_type_remboursement} (${t.repetition_annuelle}/an)`, t.id)));
 });
+ajax('GET', '/clients', null, res => {
+    const sel = document.getElementById('clientId');
+    res.forEach(t => sel.appendChild(new Option(`${t.numero_client} ${t.nom}`, t.id)));
+});
+
 
 document.getElementById('loanForm').addEventListener('submit', e => {
     e.preventDefault();

@@ -7,8 +7,10 @@
     <form id="loanForm" class="space-y-6">
         <div>
             <label for="clientId" class="block text-h6 font-medium text-custom-black mb-2">ID Client</label>
-            <input type="number" id="clientId" class="w-full border border-custom-purple-secondary rounded-md p-3"
-                   required/>
+            <select id="clientId" class="w-full border border-custom-purple-secondary rounded-md p-3" required>
+                <option value="">Client</option>
+            </select>
+
         </div>
         <div>
             <label for="loanAmount" class="block text-h6 font-medium text-custom-black mb-2">Montant du prêt (€)</label>
