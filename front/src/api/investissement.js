@@ -11,7 +11,24 @@ function fillTypePartenaireSelect(data) {
     data.forEach(type => {
         const option = document.createElement('option');
         option.value = type.id;
-        option.textContent = type.description; 
+        option.textContent = type.description;
+        option.style.color = '#000';
+        select.appendChild(option);
+    });
+}
+
+function fillPartenaireSelect(data) {
+    const select = document.getElementById('partenaire');
+
+    if (!Array.isArray(data)) return;
+
+    select.innerHTML = '<option value="">Tous les partenaires</option>';
+    select.style.color = '#000';
+
+    data.forEach(partenaire => {
+        const option = document.createElement('option');
+        option.value = partenaire.id;
+        option.textContent = partenaire.nom;
         option.style.color = '#000';
         select.appendChild(option);
     });
@@ -31,11 +48,12 @@ function fillInvestissementsTable(data) {
         tr.className = "border-b border-custom-purple-secondary hover:bg-custom-gray-purple";
 
         tr.innerHTML = `
-            <td class="p-3">${invest.type_partenaire}</td>
-            <td class="p-3">${invest.nom_client}</td>
+            <td class="p-3">${invest.nom_partenaire}</td>
+            <td class="p-3">${invest.type}</td>
+            <td class="p-3">${invest.nom}</td>
             <td class="p-3">${invest.montant_investi} €</td>
             <td class="p-3">${invest.date_investissement}</td>
-            <td class="p-3">${invest.taux_annuel} %</td>
+            <td class="p-3">${invest.taux_rendement_applique} %</td>
             <td class="p-3">${invest.retrait || '-'}</td>
         `;
 
@@ -48,16 +66,16 @@ function fillPartenaireDetailsSection(data) {
 
     if (!Array.isArray(data)) return;
 
-    section.innerHTML = ''; 
+    section.innerHTML = ''; // Vide les anciennes cartes
 
     data.forEach(partenaire => {
         const div = document.createElement('div');
         div.className = 'bg-white rounded-lg shadow-lg p-6';
 
         div.innerHTML = `
-            <h3 class="text-h4 font-semibold text-custom-black">${partenaire.nom_partenaire}</h3>
-            <p class="text-base text-custom-black mt-2"><strong>Type:</strong> ${partenaire.type_partenaire}</p>
-            <p class="text-base text-custom-black mt-2"><strong>Description:</strong> ${partenaire.description_partenaire}</p>
+            <h3 class="text-h4 font-semibold text-custom-black">${partenaire.nom}</h3>
+            <p class="text-base text-custom-black mt-2"><strong>Type:</strong> ${partenaire.type}</p>
+            <p class="text-base text-custom-black mt-2"><strong>Description:</strong> ${partenaire.description}</p>
             <p class="text-base text-custom-black mt-2"><strong>Commentaire:</strong> ${partenaire.commentaire || '-'}</p>
             <p class="text-base text-custom-black mt-2"><strong>Dépôt Min/Max:</strong> ${partenaire.depot_min} € / ${partenaire.depot_max} €</p>
             <p class="text-base text-custom-black mt-2"><strong>Durée Min/Max:</strong> ${partenaire.duree_min} mois / ${partenaire.duree_max} mois</p>
