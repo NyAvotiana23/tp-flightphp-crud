@@ -1,5 +1,8 @@
-const apiBase = "http://localhost/tp-flightphp-crud/ws";
+//const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
+// const apiBase = "http://localhost/tp-flightphp-crud/ws";
+export const apiBase = "http://localhost/Tp%20Final%20S4/tp-flightphp-crud/ws";
 
+// AJAX function (provided by user)
 export function ajax(method, url, data, callback, errorCallback) {
     const xhr = new XMLHttpRequest();
     const fullUrl = apiBase + url;
@@ -20,24 +23,18 @@ export function ajax(method, url, data, callback, errorCallback) {
                     callback(response);
                 } catch (e) {
                     console.error("Error parsing response:", e);
-                    if (errorCallback) {
-                        errorCallback("Invalid JSON response from server");
-                    }
+                    if (errorCallback) errorCallback("Invalid JSON response from server");
                 }
             } else {
                 console.error(`Request failed with status ${xhr.status}: ${xhr.statusText}`);
-                if (errorCallback) {
-                    errorCallback(`Request failed with status ${xhr.status}: ${xhr.statusText}`);
-                }
+                if (errorCallback) errorCallback(`Request failed with status ${xhr.status}: ${xhr.statusText}`);
             }
         }
     };
 
     xhr.onerror = () => {
         console.error("Network error occurred");
-        if (errorCallback) {
-            errorCallback("Network error occurred");
-        }
+        if (errorCallback) errorCallback("Network error occurred");
     };
 
     let requestData = null;

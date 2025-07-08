@@ -82,7 +82,8 @@ class MouvementBancaireEtablissementController {
 
     public static function update($id) {
         $model = new MouvementBancaireEtablissement();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Mouvement bancaire établissement modifié']);
     }

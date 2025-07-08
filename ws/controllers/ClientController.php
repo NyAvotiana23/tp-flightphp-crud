@@ -24,7 +24,8 @@ class ClientController {
 
     public static function update($id) {
         $model = new Client();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Client modifié']);
     }

@@ -25,7 +25,8 @@ class PretClientController {
 
     public static function update($id) {
         $model = new PretClient();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Prêt client modifié']);
     }
@@ -262,6 +263,20 @@ class PretClientController {
             $pdf->Output('D', 'Loan_Details_' . $id . '.pdf');
             exit;
         }
+    }
+
+    public static function getMonthlyInterests() {
+        $model = new PretClient();
+        $startDate = Flight::request()->query['startDate'] ?? null;
+        $endDate = Flight::request()->query['endDate'] ?? null;
+
+        if (!$startDate || !$endDate) {
+            Flight::json(['error' => 'Start date and end date are required'], 400);
+            return;
+        }
+
+        $data = $model->getMonthlyInterestSum($startDate, $endDate);
+        Flight::json($data);
     }
 }
 ?>

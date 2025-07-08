@@ -24,7 +24,8 @@ class RemboursementPretController {
 
     public static function update($id) {
         $model = new RemboursementPret();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Remboursement prêt modifié']);
     }

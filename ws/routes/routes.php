@@ -113,6 +113,7 @@ Flight::route('POST /prets-clients', ['PretClientController', 'create']);
 Flight::route('PUT /prets-clients/@id', ['PretClientController', 'update']);
 Flight::route('DELETE /prets-clients/@id', ['PretClientController', 'delete']);
 Flight::route('GET /prets-clients/@id/pdf', ['PretClientController', 'generatePDF']);
+Flight::route('GET /prets-clients/monthly-interests', ['PretClientController', 'getMonthlyInterests']);
 
 Flight::route('GET /remboursements-prets', ['RemboursementPretController', 'getAll']);
 Flight::route('GET /remboursements-prets/@id', ['RemboursementPretController', 'getById']);

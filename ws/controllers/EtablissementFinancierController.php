@@ -30,7 +30,8 @@ class EtablissementFinancierController {
 
     public static function update($id) {
         $model = new EtablissementFinancier();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Établissement financier modifié']);
     }

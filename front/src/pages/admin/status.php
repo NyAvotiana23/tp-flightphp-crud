@@ -70,6 +70,8 @@ include("../section/navbar.php");
             <p class="text-h4 font-bold"><strong>Solde Final:</strong> <span id="finalBalance">0.00 EUR</span></p>
         </div>
     </div>
+    <script rel="script" src="../../api/ajax.js"></script>
+    <script rel="script" src="../../api/status.js"></script>
     <script>
         // Mock client data from localStorage
         function loadClientData() {
@@ -110,7 +112,6 @@ include("../section/navbar.php");
             const finalBalance = transactions.reduce((sum, t) => sum + (t.type === 'deposit' || t.type === 'loan' ? t.amount : -t.amount), client.balance);
             document.getElementById('finalBalance').textContent = `${finalBalance.toFixed(2)} EUR`;
         }
-
 
 
         // Initial load
