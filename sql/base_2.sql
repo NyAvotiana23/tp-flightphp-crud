@@ -1,6 +1,6 @@
-# DROP DATABASE EF;
-# CREATE DATABASE EF;
-# USE EF;
+DROP DATABASE EF;
+CREATE DATABASE EF;
+USE EF;
 
 DROP TABLE IF EXISTS EF_retraits_fonds;
 DROP TABLE IF EXISTS EF_fonds_investis_clients;
@@ -216,3 +216,28 @@ CREATE TABLE EF_retraits_fonds (
     FOREIGN KEY (id_fond_investi) REFERENCES EF_fonds_investis_clients(id) ON DELETE CASCADE
 );
 
+
+
+    SELECT 
+                pc.*, 
+                cp.id_type_pret, cp.id_type_remboursement, cp.id AS contrat_id, cp.uuid, 
+                cp.taux_interet_annuel, cp.taux_assurance_annuel, cp.duree_remboursement_mois, 
+                cp.montant_pret, cp.montant_echeance,
+                tp.nom_type_pret, tr.nom_type_remboursement, 
+                sc.libelle AS status_libelle, msc.date_mouvement AS status_date
+            FROM EF_prets_clients pc
+            RIGHT JOIN EF_contrats_prets cp ON pc.id_contrat_pret = cp.id
+            INNER JOIN EF_types_prets tp ON cp.id_type_pret = tp.id
+            INNER JOIN EF_types_remboursements tr ON cp.id_type_remboursement = tr.id
+            LEFT JOIN (
+                SELECT *
+                FROM (
+                    SELECT 
+                        msc.*,
+                        ROW_NUMBER() OVER (PARTITION BY msc.id_contrat_pret ORDER BY msc.date_mouvement DESC, msc.id DESC) AS rn
+                    FROM EF_mouvement_status_contrat msc
+                ) AS ranked
+                WHERE rn = 1
+            ) AS msc ON cp.id = msc.id_contrat_pret
+            LEFT JOIN EF_status_contrat sc ON msc.id_status_contrat = sc.id
+            ORDER BY pc.id DESC
