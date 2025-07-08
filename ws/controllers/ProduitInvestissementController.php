@@ -24,7 +24,8 @@ class ProduitInvestissementController {
 
     public static function update($id) {
         $model = new ProduitInvestissement();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Produit d\'investissement modifié']);
     }

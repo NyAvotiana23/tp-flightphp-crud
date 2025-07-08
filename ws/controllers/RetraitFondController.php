@@ -24,7 +24,8 @@ class RetraitFondController {
 
     public static function update($id) {
         $model = new RetraitFond();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Retrait de fond modifié']);
     }

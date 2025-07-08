@@ -35,7 +35,8 @@ class MouvementStatusContratController
     public static function update($id)
     {
         $model = new MouvementStatusContrat();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Mouvement modifié']);
     }

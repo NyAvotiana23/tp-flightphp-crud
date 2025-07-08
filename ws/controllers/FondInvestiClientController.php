@@ -24,7 +24,8 @@ class FondInvestiClientController {
 
     public static function update($id) {
         $model = new FondInvestiClient();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Fond investi client modifié']);
     }

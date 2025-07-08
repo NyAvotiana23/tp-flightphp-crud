@@ -1,7 +1,7 @@
 import { ajax } from './ajax.js';
 
 // Configuration for each section
-const sections = {
+export const sections = {
     'bank-movement-types': {
         endpoint: '/types-mouvements-bancaires',
         fields: [
@@ -50,12 +50,7 @@ const sections = {
     }
 };
 
-// Initialize all sections
-document.addEventListener('DOMContentLoaded', () => {
-    Object.keys(sections).forEach(sectionId => {
-        loadSectionData(sectionId);
-    });
-});
+
 
 // Load data for a specific section
 function loadSectionData(sectionId) {
@@ -191,6 +186,17 @@ function deleteItem(sectionId, id) {
         });
     }
 }
+// Initialize all sections
+document.addEventListener('DOMContentLoaded', () => {
+    Object.keys(sections).forEach(sectionId => {
+        loadSectionData(sectionId);
+    });
+});
+// Expose functions to the global scope for inline event handlers
+window.openModal = openModal;
+window.deleteItem = deleteItem;
+window.closeModal = closeModal;
+
 window.addEventListener('scroll', () => {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 50) {

@@ -114,11 +114,8 @@ include("../section/navbar.php");
 include("../section/footer.php");
 ?>
 
-<script rel="script" src="../../api/ajax.js">
+<script type="module"  src="../../api/pret.js">
 </script>
-<script rel="script" src="../../api/pret.js">
-</script>
-
 </body>
 </html>
 ?>

@@ -138,8 +138,7 @@ include("../section/navbar.php");
         </section>
     </main>
 </div>
-<script rel="script" src="../../api/ajax.js"></script>
-<script rel="script" src="../../api/parametres.js">
+<script type='module'  src="../../api/parametres.js">
 </script>
 </body>
 </html>

@@ -109,9 +109,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script rel="script" src="../../api/ajax.js">
-</script>
-<script rel="script" src="../../api/pret-form.js">
+
+<script type="module" src="../../api/pret-form.js">
 </script>
 
 </body>

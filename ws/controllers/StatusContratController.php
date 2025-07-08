@@ -29,7 +29,8 @@ class StatusContratController {
     public static function update($id)
     {
         $model = new StatusContrat();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Status de contrat modifié']);
     }
