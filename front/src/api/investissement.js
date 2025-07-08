@@ -66,7 +66,7 @@ function fillPartenaireDetailsSection(data) {
 
     if (!Array.isArray(data)) return;
 
-    section.innerHTML = ''; // Vide les anciennes cartes
+    section.innerHTML = ''; 
 
     data.forEach(partenaire => {
         const div = document.createElement('div');

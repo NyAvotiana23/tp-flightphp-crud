@@ -22,10 +22,12 @@ require_once __DIR__ . '/../controllers/StatusContratController.php';
 require_once __DIR__ . '/../controllers/MouvementStatusContratController.php';
 require_once __DIR__ . '/../controllers/TypePartenaireController.php';
 require_once __DIR__ . '/../controllers/PartenaireController.php';
+require_once __DIR__ . '/../controllers/EtablissementFinancierController.php';
 
 Flight::route('GET /clients', ['ClientController', 'getAll']);
 Flight::route('GET /clients/@id', ['ClientController', 'getById']);
 Flight::route('POST /clients', ['ClientController', 'create']);
+Flight::route('POST /clients/login', ['ClientController', 'login']);
 Flight::route('PUT /clients/@id', ['ClientController', 'update']);
 Flight::route('DELETE /clients/@id', ['ClientController', 'delete']);
 
@@ -65,11 +67,19 @@ Flight::route('POST /types-mouvements-etablissements', ['TypeMouvementEtablissem
 Flight::route('PUT /types-mouvements-etablissements/@id', ['TypeMouvementEtablissementController', 'update']);
 Flight::route('DELETE /types-mouvements-etablissements/@id', ['TypeMouvementEtablissementController', 'delete']);
 
-Flight::route('GET /mouvements-bancaires-etablissements', ['MouvementBancaireEtablissementController', 'getAll']);
+Flight::route('GET /mouvements-bancaires-etablissements/firstEtablissement', ['MouvementBancaireEtablissementController', 'getByFirstEtablissement']);
 Flight::route('GET /mouvements-bancaires-etablissements/@id', ['MouvementBancaireEtablissementController', 'getById']);
+Flight::route('GET /mouvements-bancaires-etablissements', ['MouvementBancaireEtablissementController', 'getAll']);
 Flight::route('POST /mouvements-bancaires-etablissements', ['MouvementBancaireEtablissementController', 'create']);
 Flight::route('PUT /mouvements-bancaires-etablissements/@id', ['MouvementBancaireEtablissementController', 'update']);
 Flight::route('DELETE /mouvements-bancaires-etablissements/@id', ['MouvementBancaireEtablissementController', 'delete']);
+
+Flight::route('GET /etablissement-financier', ['EtablissementFinancierController', 'getAll']);
+Flight::route('GET /etablissement-financier/first', ['EtablissementFinancierController', 'getFirst']); // ✅
+Flight::route('GET /etablissement-financier/@id', ['EtablissementFinancierController', 'getById']);
+Flight::route('POST /etablissement-financier', ['EtablissementFinancierController', 'create']);
+Flight::route('PUT /etablissement-financier/@id', ['EtablissementFinancierController', 'update']);
+Flight::route('DELETE /etablissement-financier/@id', ['EtablissementFinancierController', 'delete']);
 
 Flight::route('GET /types-remboursements', ['TypeRemboursementController', 'getAll']);
 Flight::route('GET /types-remboursements/@id', ['TypeRemboursementController', 'getById']);

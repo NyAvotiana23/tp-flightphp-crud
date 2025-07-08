@@ -15,6 +15,12 @@ class EtablissementFinancierController {
         Flight::json($item);
     }
 
+    public static function getFirst() {
+        $model = new EtablissementFinancier();
+        $item = $model->getFirst(); 
+        Flight::json($item);
+    }
+
     public static function create() {
         $model = new EtablissementFinancier();
         $data = Flight::request()->data->getData();
