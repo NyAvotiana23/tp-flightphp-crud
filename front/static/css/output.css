@@ -875,7 +875,7 @@ video {
 
 .border-custom-purple-secondary {
   --tw-border-opacity: 1;
-  border-color: rgb(229 93 72 / var(--tw-border-opacity));
+  border-color: rgb(59 130 246 / var(--tw-border-opacity));
 }
 
 .border-gray-300 {
@@ -900,17 +900,17 @@ video {
 
 .bg-custom-gray-purple {
   --tw-bg-opacity: 1;
-  background-color: rgb(227 227 227 / var(--tw-bg-opacity));
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
 }
 
 .bg-custom-purple-primary {
   --tw-bg-opacity: 1;
-  background-color: rgb(27 120 136 / var(--tw-bg-opacity));
+  background-color: rgb(12 74 110 / var(--tw-bg-opacity));
 }
 
 .bg-custom-purple-secondary {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 93 72 / var(--tw-bg-opacity));
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .bg-gray-100 {
@@ -1119,7 +1119,7 @@ video {
 
 .text-custom-purple-primary {
   --tw-text-opacity: 1;
-  color: rgb(27 120 136 / var(--tw-text-opacity));
+  color: rgb(12 74 110 / var(--tw-text-opacity));
 }
 
 .text-gray-500 {
@@ -1226,12 +1226,12 @@ video {
 
 .hover\:bg-custom-gray-purple:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(227 227 227 / var(--tw-bg-opacity));
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-custom-purple-secondary:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 93 72 / var(--tw-bg-opacity));
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-400:hover {
@@ -1256,7 +1256,7 @@ video {
 
 .hover\:text-custom-purple-secondary:hover {
   --tw-text-opacity: 1;
-  color: rgb(229 93 72 / var(--tw-text-opacity));
+  color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -1271,7 +1271,7 @@ video {
 
 .focus\:border-custom-purple-primary:focus {
   --tw-border-opacity: 1;
-  border-color: rgb(27 120 136 / var(--tw-border-opacity));
+  border-color: rgb(12 74 110 / var(--tw-border-opacity));
 }
 
 .focus\:outline-none:focus {
@@ -1293,12 +1293,12 @@ video {
 
 .focus\:ring-custom-purple-primary:focus {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(27 120 136 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(12 74 110 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-custom-purple-secondary:focus {
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(229 93 72 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-opacity-50:focus {

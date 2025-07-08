@@ -4,10 +4,10 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                'custom-purple-primary': '#1b7888',
-                'custom-purple-secondary': '#e55d48',
+                'custom-purple-primary': '#0C4A6E',
+                'custom-purple-secondary': '#3B82F6',
                 'custom-black': '#1F2937',
-                'custom-gray-purple': '#e3e3e3',
+                'custom-gray-purple': '#DBEAFE',
             },
             fontSize: {
                 // Paragraph (base text)
