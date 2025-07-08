@@ -1,7 +1,3 @@
-DROP DATABASE EF;
-CREATE DATABASE EF;
-USE EF;
-
 DROP TABLE IF EXISTS EF_retraits_fonds;
 DROP TABLE IF EXISTS EF_fonds_investis_clients;
 DROP TABLE IF EXISTS EF_mouvements_partenaire;
@@ -125,6 +121,7 @@ CREATE TABLE EF_contrats_prets (
     duree_remboursement_mois INT NOT NULL,
     montant_pret DECIMAL(12,2) NOT NULL,
     montant_echeance DECIMAL(12,2) NOT NULL,
+    delay_remboursement_mois INT NOT NULL,
     FOREIGN KEY (id_client) REFERENCES EF_clients(id) ON DELETE CASCADE,
     FOREIGN KEY (id_type_remboursement) REFERENCES EF_types_remboursements(id),
     FOREIGN KEY (id_type_pret) REFERENCES EF_types_prets(id)
