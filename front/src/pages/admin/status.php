@@ -55,7 +55,6 @@ include("../section/navbar.php");
             <table class="w-full text-base">
                 <thead>
                 <tr class="bg-custom-purple-secondary text-white">
-                    <th class="p-3 text-left">Type</th>
                     <th class="p-3 text-left">Nom</th>
                     <th class="p-3 text-left">Revenu Mensuel</th>
                     <th class="p-3 text-left">Date Début</th>
