@@ -22,7 +22,8 @@ include("../section/navbar.php");
             <div class="space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="text-h4 font-medium">Liste des Mouvements</h3>
-                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition" onclick="openModal('bank-movement-types')">
+                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition"
+                            onclick="openModal('bank-movement-types')">
                         Ajouter
                     </button>
                 </div>
@@ -45,7 +46,8 @@ include("../section/navbar.php");
             <div class="space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="text-h4 font-medium">Liste des Contrats</h3>
-                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition" onclick="openModal('contract-types')">
+                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition"
+                            onclick="openModal('contract-types')">
                         Ajouter
                     </button>
                 </div>
@@ -68,7 +70,8 @@ include("../section/navbar.php");
             <div class="space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="text-h4 font-medium">Liste des Mouvements</h3>
-                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition" onclick="openModal('establishment-movement-types')">
+                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition"
+                            onclick="openModal('establishment-movement-types')">
                         Ajouter
                     </button>
                 </div>
@@ -90,7 +93,8 @@ include("../section/navbar.php");
             <div class="space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="text-h4 font-medium">Liste des Remboursements</h3>
-                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition" onclick="openModal('repayment-types')">
+                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition"
+                            onclick="openModal('repayment-types')">
                         Ajouter
                     </button>
                 </div>
@@ -113,7 +117,8 @@ include("../section/navbar.php");
             <div class="space-y-4">
                 <div class="flex justify-between items-center">
                     <h3 class="text-h4 font-medium">Liste des Prêts</h3>
-                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition" onclick="openModal('loan-types')">
+                    <button class="bg-custom-purple-primary text-white px-4 py-2 rounded hover:bg-custom-purple-secondary transition"
+                            onclick="openModal('loan-types')">
                         Ajouter
                     </button>
                 </div>
@@ -133,65 +138,16 @@ include("../section/navbar.php");
         </section>
     </main>
 </div>
-
+<script rel="script" src="../../api/ajax.js"></script>
 <script>
-    const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
-
-    // AJAX function (provided by user)
-    function ajax(method, url, data, callback, errorCallback) {
-        const xhr = new XMLHttpRequest();
-        const fullUrl = apiBase + url;
-
-        xhr.open(method, fullUrl, true);
-
-        if (method === 'POST' || method === 'PUT') {
-            xhr.setRequestHeader("Content-Type", "application/json");
-        } else {
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        }
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    try {
-                        const response = JSON.parse(xhr.responseText);
-                        callback(response);
-                    } catch (e) {
-                        console.error("Error parsing response:", e);
-                        if (errorCallback) errorCallback("Invalid JSON response from server");
-                    }
-                } else {
-                    console.error(`Request failed with status ${xhr.status}: ${xhr.statusText}`);
-                    if (errorCallback) errorCallback(`Request failed with status ${xhr.status}: ${xhr.statusText}`);
-                }
-            }
-        };
-
-        xhr.onerror = () => {
-            console.error("Network error occurred");
-            if (errorCallback) errorCallback("Network error occurred");
-        };
-
-        let requestData = null;
-        if (data) {
-            if (method === 'POST' || method === 'PUT') {
-                requestData = JSON.stringify(data);
-            } else if (method === 'GET' || method === 'DELETE') {
-                const params = new URLSearchParams(data).toString();
-                xhr.open(method, fullUrl + (params ? `?${params}` : ''), true);
-            }
-        }
-
-        xhr.send(requestData);
-    }
 
     // Configuration for each section
     const sections = {
         'bank-movement-types': {
             endpoint: '/types-mouvements-bancaires',
             fields: [
-                { id: 'nom_type_mouvement', label: 'Nom', type: 'text', required: true },
-                { id: 'description', label: 'Description', type: 'textarea', required: false }
+                {id: 'nom_type_mouvement', label: 'Nom', type: 'text', required: true},
+                {id: 'description', label: 'Description', type: 'textarea', required: false}
             ],
             tableColumns: ['nom_type_mouvement', 'description'],
             tableLabels: ['Nom', 'Description']
@@ -199,8 +155,8 @@ include("../section/navbar.php");
         'contract-types': {
             endpoint: '/types-contrats-activite',
             fields: [
-                { id: 'nom_type_contrat', label: 'Nom', type: 'text', required: true },
-                { id: 'description', label: 'Description', type: 'textarea', required: false }
+                {id: 'nom_type_contrat', label: 'Nom', type: 'text', required: true},
+                {id: 'description', label: 'Description', type: 'textarea', required: false}
             ],
             tableColumns: ['nom_type_contrat', 'description'],
             tableLabels: ['Nom', 'Description']
@@ -208,7 +164,7 @@ include("../section/navbar.php");
         'establishment-movement-types': {
             endpoint: '/types-mouvements-etablissements',
             fields: [
-                { id: 'nom_type_mouvement', label: 'Nom', type: 'text', required: true }
+                {id: 'nom_type_mouvement', label: 'Nom', type: 'text', required: true}
             ],
             tableColumns: ['nom_type_mouvement'],
             tableLabels: ['Nom']
@@ -216,8 +172,8 @@ include("../section/navbar.php");
         'repayment-types': {
             endpoint: '/types-remboursements',
             fields: [
-                { id: 'nom_type_remboursement', label: 'Nom', type: 'text', required: true },
-                { id: 'repetition_annuelle', label: 'Répétition Annuelle', type: 'number', required: true }
+                {id: 'nom_type_remboursement', label: 'Nom', type: 'text', required: true},
+                {id: 'repetition_annuelle', label: 'Répétition Annuelle', type: 'number', required: true}
             ],
             tableColumns: ['nom_type_remboursement', 'repetition_annuelle'],
             tableLabels: ['Nom', 'Répétition Annuelle']
@@ -225,10 +181,10 @@ include("../section/navbar.php");
         'loan-types': {
             endpoint: '/types-prets',
             fields: [
-                { id: 'nom_type_pret', label: 'Nom', type: 'text', required: true },
-                { id: 'taux_interet_min_annuel', label: 'Taux Min (%)', type: 'number', step: '0.01', required: true },
-                { id: 'taux_interet_max_annuel', label: 'Taux Max (%)', type: 'number', step: '0.01', required: true },
-                { id: 'motif', label: 'Motif', type: 'textarea', required: false }
+                {id: 'nom_type_pret', label: 'Nom', type: 'text', required: true},
+                {id: 'taux_interet_min_annuel', label: 'Taux Min (%)', type: 'number', step: '0.01', required: true},
+                {id: 'taux_interet_max_annuel', label: 'Taux Max (%)', type: 'number', step: '0.01', required: true},
+                {id: 'motif', label: 'Motif', type: 'textarea', required: false}
             ],
             tableColumns: ['nom_type_pret', 'taux_interet_min_annuel', 'taux_interet_max_annuel', 'motif'],
             tableLabels: ['Nom', 'Taux Min (%)', 'Taux Max (%)', 'Motif']
@@ -376,6 +332,14 @@ include("../section/navbar.php");
             });
         }
     }
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+    });
 </script>
 </body>
 </html>
