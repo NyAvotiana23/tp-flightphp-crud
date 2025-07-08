@@ -1,5 +1,9 @@
 import { ajax } from './ajax.js';
 
+ajax('GET', '/type-partenaire', null, res => {
+    const sel = document.getElementById('typePartenaire');
+    res.forEach(t => sel.appendChild(new Option(`${t.designation}`, t.id)));
+});
 function createCard(produit) {
         return `
             <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">

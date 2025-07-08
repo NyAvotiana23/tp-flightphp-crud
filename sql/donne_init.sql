@@ -63,7 +63,7 @@ VALUES ('En attente'),
        ('En défaut');
 
 -- 9. EF_type_partenaire
-INSERT INTO EF_type_partenaire (description)
+INSERT INTO EF_type_partenaire (designation)
 VALUES ('Fonds d’investissement'),
        ('Banque partenaire'),
        ('Assurance'),
