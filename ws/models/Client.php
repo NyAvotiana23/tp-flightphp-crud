@@ -18,4 +18,25 @@ class Client extends BaseModel
         }
         return null;
     }
+
+    public function filterClient($nom, $email, $numero)
+    {
+        $sql = "SELECT * FROM EF_clients WHERE 1=1";
+        $params = [];
+
+        if (!empty($nom)) {
+            $sql .= " AND nom LIKE ?";
+            $params[] = '%' . $nom . '%';
+        }
+        if (!empty($email)) {
+            $sql .= " AND email LIKE ?";
+            $params[] = '%' . $email . '%';
+        }
+        if (!empty($numero)) {
+            $sql .= " AND numero_client LIKE ?";
+            $params[] = '%' . $numero . '%';
+        }
+
+        return $this->rawFetch($sql, $params);
+    }
 }

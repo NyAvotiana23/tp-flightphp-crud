@@ -1,4 +1,23 @@
-import { ajax } from './ajax.js';
+import {ajax} from './ajax.js';
+
+
+function filterClients(event) {
+    event.preventDefault();
+    const nom = document.getElementById("nom").value;
+    const email = document.getElementById("email").value;
+    const numero = document.getElementById("numero").value;
+
+    const filters = {
+        nom: nom ? nom.trim() : null,
+        email: email ? email.trim() : null,
+        numero: numero ? numero.trim() : null
+    };
+
+
+    ajax('GET', '/clients', filters, fillClientTable, handleError);
+
+
+}
 
 function fillClientTable(data) {
     const tbody = document.getElementById('clientList');
@@ -58,7 +77,7 @@ function onSubmitClient(event) {
     const clientNumber = event.target.querySelector('#clientNumber')?.value || event.target.querySelector('#modalClientNumber')?.value;
     const password = event.target.querySelector('#password')?.value || event.target.querySelector('#modalPassword')?.value;
 
-    ajax('POST', '/clients/login', { numero_client: clientNumber, mot_de_passe: password }, (response) => {
+    ajax('POST', '/clients/login', {numero_client: clientNumber, mot_de_passe: password}, (response) => {
         if (response) {
             localStorage.setItem('client', JSON.stringify(response));
             window.location.href = 'status.php';
@@ -87,6 +106,7 @@ function onSubmitCreateClient(event) {
         ajax('GET', '/clients', null, fillClientTable, handleError);
     }, handleError);
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
     ajax('GET', '/clients', null, fillClientTable, handleError);

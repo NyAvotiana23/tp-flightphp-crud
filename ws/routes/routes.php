@@ -29,7 +29,7 @@ Flight::route('POST /clients', ['ClientController', 'create']);
 Flight::route('POST /clients/login', ['ClientController', 'login']);
 Flight::route('PUT /clients/@id', ['ClientController', 'update']);
 Flight::route('DELETE /clients/@id', ['ClientController', 'delete']);
-Flight::route('POST /clients/login', ['ClientController', 'login']);
+Flight::route('GET /clients/filter', ['ClientController', 'filter']);
 
 Flight::route('GET /mouvement-status-contrat', ['MouvementStatusContratController', 'getAll']);
 Flight::route('GET /mouvement-status-contrat/@id', ['MouvementStatusContratController', 'getById']);
