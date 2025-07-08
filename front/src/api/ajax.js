@@ -1,4 +1,3 @@
-//const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
 // const apiBase = "http://localhost/tp-flightphp-crud/ws";
 export const apiBase = "http://localhost/tp-flightphp-crud/ws";
 

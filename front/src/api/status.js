@@ -1,4 +1,4 @@
-import { ajax } from "./ajax.js";
+import {ajax} from "./ajax.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const client = JSON.parse(localStorage.getItem("client"));
@@ -26,14 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const fetchTransactions = (filters = {}) => {
         const conditions = [];
         if (filters.date) {
-            conditions.push({ column: "date_mouvement", operator: "=", value: filters.date });
+            conditions.push({column: "date_mouvement", operator: "=", value: filters.date});
         }
         if (filters.type && filters.type !== "all") {
-            conditions.push({ column: "type_mouvement", operator: "=", value: filters.type });
+            conditions.push({column: "type_mouvement", operator: "=", value: filters.type});
         }
-        conditions.push({ column: "id_client", operator: "=", value: client.id });
+        conditions.push({column: "id_client", operator: "=", value: client.id});
 
-        ajax("POST", "/mouvements-bancaires-clients/filter", { conditions }, (response) => {
+        ajax("POST", "/mouvements-bancaires-clients/filter", {conditions}, (response) => {
             const transactions = response;
             const transactionList = document.getElementById("transactionList");
             transactionList.innerHTML = "";
@@ -77,10 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const activityList = document.getElementById("activityList");
             activityList.innerHTML = "";
             response.forEach(activity => {
-                ajax("GET", `/types-contrats-activite/${activity.id_type_contrat}`, null, (type) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td class="p-3">${type.nom_type_contrat}</td>
+                let row = document.getElementById("tr");
+                row.innerHTML = `
                         <td class="p-3">${activity.nom_activite}</td>
                         <td class="p-3">${parseFloat(activity.revenu_net_mensuel).toFixed(2)} EUR</td>
                         <td class="p-3">${activity.date_debut}</td>
@@ -90,8 +88,21 @@ document.addEventListener("DOMContentLoaded", () => {
                             <button class="deleteActivity bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600" data-id="${activity.id}">Supprimer</button>
                         </td>
                     `;
-                    activityList.appendChild(row);
-                });
+                activityList.appendChild(row);
+            });
+        }, (error) => {
+            console.error("Error fetching activities:", error);
+            alert("Erreur lors du chargement des activités.");
+        });
+    };
+    const fetchTypeMouv = () => {
+        ajax("GET", `/types-mouvements-bancaires`, null, (response) => {
+            const mouvList = document.getElementById("movementType");
+            response.forEach(mouv => {
+                const row = document.createElement("option");
+                row.value = mouv.id;
+                row.textContent = mouv.nom_type_mouvement;
+                mouvList.appendChild(row);
             });
         }, (error) => {
             console.error("Error fetching activities:", error);
@@ -186,4 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchTransactions();
     populateContractTypes();
     fetchActivities();
+    fetchTypeMouv();
+
 });
