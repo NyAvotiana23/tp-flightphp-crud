@@ -11,6 +11,38 @@ include("../section/navbar.php");
 
     <!-- Filters -->
     <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-h3 font-semibold text-custom-black mb-4">Somme des intérêts par mois</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+                <label class="block text-base text-custom-black mb-2">Date de début</label>
+                <input type="date" id="monthly_interest_start_date" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+            </div>
+            <div>
+                <label class="block text-base text-custom-black mb-2">Date de fin</label>
+                <input type="date" id="monthly_interest_end_date" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+            </div>
+            <div class="flex items-end">
+                <button onclick="loadMonthlyInterests" id="showMonthlyInterestsBtn" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Afficher les intérêts mensuels</button>
+            </div>
+        </div>
+
+        <div id="monthlyInterestsSection" class="hidden">
+            <h3 class="text-h4 font-semibold text-custom-black mb-4">Détails des intérêts mensuels</h3>
+            <table class="w-full text-base mb-6">
+                <thead>
+                <tr class="bg-custom-gray-purple">
+                    <th class="p-2 text-left">Mois</th>
+                    <th class="p-2 text-left">Somme totale des intérêts (€)</th>
+                </tr>
+                </thead>
+                <tbody id="monthlyInterestTableBody">
+                </tbody>
+            </table>
+            <h3 class="text-h4 font-semibold text-custom-black mb-4">Graphique des intérêts mensuels</h3>
+            <canvas id="monthlyInterestChart" class="w-full h-64"></canvas>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 mb-8">
         <h2 class="text-h3 font-semibold text-custom-black mb-4">Filtres</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>

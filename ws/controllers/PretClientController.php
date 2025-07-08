@@ -264,5 +264,19 @@ class PretClientController {
             exit;
         }
     }
+
+    public static function getMonthlyInterests() {
+        $model = new PretClient();
+        $startDate = Flight::request()->query['startDate'] ?? null;
+        $endDate = Flight::request()->query['endDate'] ?? null;
+
+        if (!$startDate || !$endDate) {
+            Flight::json(['error' => 'Start date and end date are required'], 400);
+            return;
+        }
+
+        $data = $model->getMonthlyInterestSum($startDate, $endDate);
+        Flight::json($data);
+    }
 }
 ?>
