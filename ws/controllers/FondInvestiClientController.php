@@ -59,15 +59,7 @@ class FondInvestiClientController {
                 'montant' => -$data['montant_investi'] // Negative for client
             ]);
 
-            // Get partenaire's associated etablissement
-            $partenaire = $model->rawFetch(
-                "SELECT id_etablissement FROM EF_partenaire WHERE id = ?",
-                [$data['id_partenaire']]
-            );
-            if (empty($partenaire)) {
-                throw new Exception("Partenaire not found");
-            }
-            $idEtablissement = $partenaire[0]['id_etablissement'];
+
 
             // Get type_mouvement_id for 'Gain Fond' (assuming it exists in EF_types_mouvements_etablissements)
             $typeMouvementEtablissement = $model->rawFetch(
@@ -81,7 +73,7 @@ class FondInvestiClientController {
 
             // Create etablissement movement (positive amount)
             $mouvementEtablissementModel->create([
-                'id_etablissement' => $idEtablissement,
+                'id_etablissement' => 1,
                 'id_type_mouvement' => $typeMouvementEtablissementId,
                 'montant' => $data['montant_investi'], // Positive for etablissement
                 'date_mouvement' => $data['date_investissement']

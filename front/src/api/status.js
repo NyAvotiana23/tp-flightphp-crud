@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Calculate and display balance
     const calculateBalance = (transactions) => {
+        
         const balance = transactions.reduce((sum, t) => {
             return t.type_mouvement === "deposit" ? sum + parseFloat(t.montant) : sum - parseFloat(t.montant);
         }, 0);
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const activityList = document.getElementById("activityList");
             activityList.innerHTML = "";
             response.forEach(activity => {
-                let row = document.getElementById("tr");
+                let row = document.createElement("tr");
                 row.innerHTML = `
                         <td class="p-3">${activity.nom_activite}</td>
                         <td class="p-3">${parseFloat(activity.revenu_net_mensuel).toFixed(2)} EUR</td>

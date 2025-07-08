@@ -6,9 +6,48 @@ include("../section/head.php");
 include("../section/navbar.php");
 ?>
 <div class="container mx-auto px-4 py-8 mt-16">
+    <!-- Client List and Filters -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-h2 font-bold text-custom-purple-primary mb-6">Liste des Clients</h2>
 
-    <div class="flex-row flex gap-12">
+        <!-- Filters -->
+        <form onsubmit="filterClients(event)" class="flex flex-wrap gap-4 mb-6">
+            <label class="text-h3">Filtre : </label>
+            <input type="text" placeholder="Filtrer par Nom"
+                   id="nom"
+                   class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+            <input type="text" placeholder="Filtrer par Email"
+                   id="email"
+                   class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+            <input type="text" placeholder="Filtrer par Numéro Client"
+                   id="numero"
+                   class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+            <button type="submit"
+                    class="p-8 bg-custom-purple-primary text-white py-2 rounded-lg hover:bg-custom-purple-secondary transition duration-300">
+                Filtrer
+            </button>
+        </form>
 
+        <!-- Client List -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-base">
+                <thead>
+                <tr class="bg-custom-purple-secondary text-white">
+                    <th class="p-3 text-left">Numéro Client</th>
+                    <th class="p-3 text-left">Nom</th>
+                    <th class="p-3 text-left">Prénom</th>
+                    <th class="p-3 text-left">Mot de passe</th>
+                    <th class="p-3 text-left">Email</th>
+                    <th class="p-3 text-left">Action</th>
+                </tr>
+                </thead>
+                <tbody id="clientList">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="flex-row flex gap-12 mt-16">
         <!-- Create Client Form -->
         <div class="max-w-md mx-auto mb-12 bg-white rounded-lg shadow-lg p-6">
             <h1 class="text-h1 font-bold text-custom-purple-primary mb-6 text-center">Ajouter un Client</h1>
@@ -92,47 +131,6 @@ include("../section/navbar.php");
         </div>
     </div>
 
-
-    <!-- Client List and Filters -->
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <h2 class="text-h2 font-bold text-custom-purple-primary mb-6">Liste des Clients</h2>
-
-        <!-- Filters -->
-        <form onsubmit="filterClients(event)" class="flex flex-wrap gap-4 mb-6">
-            <label class="text-h3">Filtre : </label>
-            <input type="text" placeholder="Filtrer par Nom"
-                   id="nom"
-                   class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
-            <input type="text" placeholder="Filtrer par Email"
-                   id="email"
-                   class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
-            <input type="text" placeholder="Filtrer par Numéro Client"
-                   id="numero"
-                   class="p-2 border border-custom-purple-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
-            <button type="submit"
-                    class="p-8 bg-custom-purple-primary text-white py-2 rounded-lg hover:bg-custom-purple-secondary transition duration-300">
-                Filtrer
-            </button>
-        </form>
-
-        <!-- Client List -->
-        <div class="overflow-x-auto">
-            <table class="w-full text-base">
-                <thead>
-                <tr class="bg-custom-purple-secondary text-white">
-                    <th class="p-3 text-left">Numéro Client</th>
-                    <th class="p-3 text-left">Nom</th>
-                    <th class="p-3 text-left">Prénom</th>
-                    <th class="p-3 text-left">Mot de passe</th>
-                    <th class="p-3 text-left">Email</th>
-                    <th class="p-3 text-left">Action</th>
-                </tr>
-                </thead>
-                <tbody id="clientList">
-                </tbody>
-            </table>
-        </div>
-    </div>
 
     <!-- Floating Client Details Modal -->
     <div id="clientModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
