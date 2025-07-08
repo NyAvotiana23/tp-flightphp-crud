@@ -91,6 +91,11 @@ include("../section/navbar.php");
             </div>
             <button id="filterTransactions" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Filtrer</button>
         </div>
+        <!-- Action Buttons -->
+        <div class="flex gap-4 mb-6">
+            <a href="pret.php" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Faire un Prêt</a>
+            <a href="tableau-bord.php" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Investir</a>
+        </div>
 
         <!-- Transaction List -->
         <div class="overflow-x-auto">
@@ -115,11 +120,7 @@ include("../section/navbar.php");
         </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="flex gap-4 mb-6">
-        <a href="pret.php" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Faire un Prêt</a>
-        <a href="tableau-bord.php" class="bg-custom-purple-primary text-white py-2 px-4 rounded-lg hover:bg-custom-purple-secondary transition duration-300">Investir</a>
-    </div>
+
 </div>
 <script type="module" src="../../api/status.js"></script>
 </body>
