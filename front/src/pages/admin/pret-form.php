@@ -52,6 +52,7 @@
             <button id="saveSimulation" type="button" class="flex-1 bg-green-600 text-white text-sm font-medium py-3 rounded-md hover:bg-green-700 transition">Sauvegarder la simulation</button>
         </div>
     </form>
+    <a href="compare-simulations.php" class="underline text-custom-black">Comparer des simulations</a>
 
     <div id="contractSection" class="hidden mt-8 p-6 bg-gray-50 rounded-lg">
         <h2 class="text-2xl font-bold text-purple-700 mb-4">Contrat de Prêt</h2>

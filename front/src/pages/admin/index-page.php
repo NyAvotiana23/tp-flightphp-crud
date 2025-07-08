@@ -15,7 +15,7 @@ include("../section/navbar.php");
             <p class="text-base text-custom-black/80 mb-6">
                 Optimisez vos opérations financières avec notre tableau de bord administratif avancé. Suivez vos prêts, gérez vos investissements et générez des rapports détaillés avec facilité et efficacité.
             </p>
-            <a href="#" class="inline-block bg-custom-purple-primary text-white px-6 py-3 rounded-lg hover:bg-custom-purple-secondary transition-colors text-base">
+            <a href="tableau-bord.php" class="inline-block bg-custom-purple-primary text-white px-6 py-3 rounded-lg hover:bg-custom-purple-secondary transition-colors text-base">
                 Commencer
             </a>
         </div>
