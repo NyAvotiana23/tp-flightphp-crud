@@ -35,7 +35,6 @@ function loadMonthlyInterests() {
 
         document.getElementById('monthlyInterestsSection').classList.remove('hidden');
 
-        // Render chart
         const ctx = document.getElementById('monthlyInterestChart').getContext('2d');
 
         window.monthlyInterestChart = new Chart(ctx, {
