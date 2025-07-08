@@ -23,6 +23,13 @@ class BaseModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getFirst()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM " . $this->tableName . " ORDER BY id ASC LIMIT 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function create($data) {
         if (is_object($data)) {
             $data = (array) $data;

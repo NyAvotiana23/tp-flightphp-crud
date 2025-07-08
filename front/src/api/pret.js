@@ -1,4 +1,100 @@
 import { ajax } from './ajax.js';
+import { apiBase } from "./ajax.js";
+
+function loadMonthlyInterests() {
+    const startDate = document.getElementById('monthly_interest_start_date').value;
+    const endDate = document.getElementById('monthly_interest_end_date').value;
+
+    if (!startDate || !endDate) {
+        alert("Veuillez sélectionner les dates de début et de fin.");
+        return;
+    }
+    alert('u clicked the buttpn')
+
+    ajax('GET', `/prets-clients/monthly-interests?startDate=${startDate}&endDate=${endDate}`, null, (data) => {
+        const tableBody = document.getElementById('monthlyInterestTableBody');
+        tableBody.innerHTML = '';
+        if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="2" class="p-2 text-center">Aucune donnée disponible pour les dates sélectionnées.</td></tr>';
+            document.getElementById('monthlyInterestsSection').classList.remove('hidden');
+            if (window.monthlyInterestChart) {
+                window.monthlyInterestChart.destroy();
+            }
+            return;
+        }
+
+        const months = [];
+        const totalInterests = [];
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="p-2">${item.month}</td>
+                <td class="p-2">${parseFloat(item.total_interest).toFixed(2)} €</td>
+            `;
+            tableBody.appendChild(row);
+            months.push(item.month);
+            totalInterests.push(parseFloat(item.total_interest).toFixed(2));
+        });
+
+        document.getElementById('monthlyInterestsSection').classList.remove('hidden');
+
+        // Render chart
+        const ctx = document.getElementById('monthlyInterestChart').getContext('2d');
+        if (window.monthlyInterestChart) {
+            window.monthlyInterestChart.destroy();
+        }
+        window.monthlyInterestChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Somme des intérêts (€)',
+                    data: totalInterests,
+                    borderColor: '#8B5CF6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Mois'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Somme des intérêts (€)'
+                        },
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' €';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    }, (error) => {
+        console.error('Erreur lors du chargement des sommes d\'intérêts mensuels:', error);
+        alert('Erreur lors du chargement des sommes d\'intérêts mensuels: ' + error);
+    });
+}
 
 function loadFilterOptions() {
     // Fetch loan types
@@ -108,35 +204,6 @@ function showLoanDetails(loanId) {
     }, (error) => {
         console.error('Erreur lors du chargement des détails du prêt:', error);
     });
-
-    const validateBtn = document.getElementById('validateContractBtn');
-
-    // Vérifie si le statut est "En attente"
-    if (data.status && data.status.libelle === 'En attente') {
-        validateBtn.classList.remove('hidden');
-
-        validateBtn.onclick = () => {
-            // Requête POST vers mouvement-status-contrat
-            const payload = {
-                id_contrat_pret: data.contract.id,
-                id_status_contrat: 4 // ← ID correspondant à "Actif", à ajuster si besoin
-            };
-
-            ajax('POST', '/mouvement-status-contrat', payload, (response) => {
-                alert('Contrat validé avec succès !');
-                validateBtn.classList.add('hidden');
-                filterLoans(); // Recharge la liste
-                closeLoanDetails(); // Ferme les détails
-            }, (error) => {
-                console.error("Erreur validation contrat:", error);
-                alert("Échec de la validation.");
-            });
-        };
-    } else {
-        validateBtn.classList.add('hidden');
-    }
-
-
 }
 
 function closeLoanDetails() {

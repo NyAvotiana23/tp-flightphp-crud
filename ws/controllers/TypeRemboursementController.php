@@ -34,4 +34,33 @@ class TypeRemboursementController {
         $model->delete($id);
         Flight::json(['message' => 'Type de remboursement supprimé']);
     }
+
+    public static function getStatsInteretsParMois($dateDebut, $dateFin) {
+        $sql = "
+            SELECT 
+                YEAR(date_remboursement) as annee,
+                MONTH(date_remboursement) as mois,
+                SUM(interets) as total_interets
+            FROM 
+                EF_types_remboursements
+            WHERE 
+                date_remboursement BETWEEN :dateDebut AND :dateFin
+            GROUP BY 
+                annee, mois
+            ORDER BY 
+                annee, mois;
+        ";
+
+        try {
+            $db = Flight::db();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':dateDebut', $dateDebut);
+            $stmt->bindParam(':dateFin', $dateFin);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Gérer l'erreur de base de données
+            return ['error' => $e->getMessage()];
+        }
+    }
 }
