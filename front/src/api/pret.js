@@ -9,7 +9,6 @@ function loadMonthlyInterests() {
         alert("Veuillez sélectionner les dates de début et de fin.");
         return;
     }
-    alert('u clicked the buttpn')
 
     ajax('GET', `/prets-clients/monthly-interests?startDate=${startDate}&endDate=${endDate}`, null, (data) => {
         const tableBody = document.getElementById('monthlyInterestTableBody');
@@ -17,9 +16,6 @@ function loadMonthlyInterests() {
         if (data.length === 0) {
             tableBody.innerHTML = '<tr><td colspan="2" class="p-2 text-center">Aucune donnée disponible pour les dates sélectionnées.</td></tr>';
             document.getElementById('monthlyInterestsSection').classList.remove('hidden');
-            if (window.monthlyInterestChart) {
-                window.monthlyInterestChart.destroy();
-            }
             return;
         }
 
