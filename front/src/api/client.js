@@ -38,6 +38,8 @@ function fillClientTable(data) {
             <td class="p-3">${client.numero_client}</td>
             <td class="p-3">${client.nom}</td>
             <td class="p-3">${client.prenom}</td>
+            <td class="p-3">${client.mot_de_passe}</td>
+            
             <td class="p-3">${client.email}</td>
             <td class="p-3">
                 <button class="text-custom-purple-primary hover:underline">Voir détails</button>
@@ -59,6 +61,8 @@ function showClientDetails(client) {
     document.getElementById('clientContact').textContent = client.telephone || 'Non renseigné';
 
     document.getElementById('modalClientNumber').value = client.numero_client;
+    document.getElementById('modalPassword').value = client.mot_de_passe;
+
 
     document.getElementById('clientModal').classList.remove('hidden');
 }

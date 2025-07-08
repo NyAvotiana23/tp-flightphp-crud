@@ -123,6 +123,7 @@ include("../section/navbar.php");
                     <th class="p-3 text-left">Numéro Client</th>
                     <th class="p-3 text-left">Nom</th>
                     <th class="p-3 text-left">Prénom</th>
+                    <th class="p-3 text-left">Mot de passe</th>
                     <th class="p-3 text-left">Email</th>
                     <th class="p-3 text-left">Action</th>
                 </tr>
