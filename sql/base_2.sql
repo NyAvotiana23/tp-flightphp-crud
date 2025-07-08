@@ -121,6 +121,7 @@ CREATE TABLE EF_contrats_prets (
     duree_remboursement_mois INT NOT NULL,
     montant_pret DECIMAL(12,2) NOT NULL,
     montant_echeance DECIMAL(12,2) NOT NULL,
+    delay_remboursement_mois INT NOT NULL,
     FOREIGN KEY (id_client) REFERENCES EF_clients(id) ON DELETE CASCADE,
     FOREIGN KEY (id_type_remboursement) REFERENCES EF_types_remboursements(id),
     FOREIGN KEY (id_type_pret) REFERENCES EF_types_prets(id)

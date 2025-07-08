@@ -43,7 +43,7 @@ document.getElementById('loanForm').addEventListener('submit', e => {
             duree_remboursement_mois: loanDuration,
             montant_pret: loanAmount,
             montant_echeance: monthlyPayment,
-            duree_remboursement_mois: repaymentDelay
+            delay_remboursement_mois: repaymentDelay
         };
 
         ajax('POST', '/contrats-prets', contractData, resp => {
@@ -86,6 +86,10 @@ document.getElementById('showSimulation').addEventListener('click', () => {
     const interestRate = +document.getElementById('contractInterestRate').textContent;
     const insuranceRate = +document.getElementById('contractInsuranceRate').textContent;
     const monthlyPayment = +document.getElementById('contractMonthlyPayment').textContent;
+    const delay = +document.getElementById('repaymentDelay').textContent;
+
+    const aujourdHui = new Date();
+    let date_debut = new Date(aujourdHui.setMonth(aujourdHui.getMonth() + delay));
 
     ajax('GET', `/types-remboursements/${repaymentTypeId}`, null, r => {
         const freq = r.repetition_annuelle;
@@ -103,6 +107,7 @@ document.getElementById('showSimulation').addEventListener('click', () => {
             const total = monthlyPayment + insurance;
             rows += `<tr>
                     <td class="p-3">${i}</td>
+                    <td class="p-3">${date_debut}</td>
                     <td class="p-3">${rem.toFixed(2)}</td>
                     <td class="p-3">${interest.toFixed(2)}</td>
                     <td class="p-3">${cap.toFixed(2)}</td>
@@ -110,6 +115,7 @@ document.getElementById('showSimulation').addEventListener('click', () => {
                     <td class="p-3">${total.toFixed(2)}</td>
                 </tr>`;
             data.push({ rem, interest, cap, insurance, total });
+            date_debut = new Date(date_debut.setMonth(date_debut.getMonth() + 1));
             rem -= cap;
         }
 

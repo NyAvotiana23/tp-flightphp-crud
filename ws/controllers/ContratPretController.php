@@ -24,6 +24,7 @@ class ContratPretController {
     }
 
     public static function create() {
+        error_log("tsisy dikany");
         $model = new ContratPret();
         $clientModel = new Client();
         $typePretModel = new TypePret();
