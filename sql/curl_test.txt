@@ -1,0 +1,30 @@
+Invoke-WebRequest -Uri http://localhost/finance/tp-flightphp-crud/ws/simulation-pret `
+-Method POST `
+-Headers @{ "Content-Type" = "application/json" } `
+-Body '{
+    "montant_pret": 10000,
+    "montant_echeance": 438.71,
+    "durre_pret": 24,
+    "durre_remboursement_mois": 24,
+    "taux_interet_annuel": 5,
+    "taux_assurance_annuel": 1,
+    "date_debut_pret": "2025-07-08",
+    "delai_remboursement_mois": 0
+}'
+
+
+Invoke-WebRequest -Uri http://localhost/finance/tp-flightphp-crud/ws/contrats-prets `
+-Method POST `
+-Headers @{ "Content-Type" = "application/json" } `
+-Body '{
+    "id_client": 1,
+    "id_type_remboursement": 1,
+    "id_type_pret": 1,
+    "uuid": "550e8400-e29b-41d4-a716-446655440000",
+    "taux_interet_annuel": 5,
+    "taux_assurance_annuel": 1,
+    "duree_remboursement_mois": 24,
+    "montant_pret": 10000,
+    "montant_echeance": 438.71,
+    "delai_remboursement_mois": 0
+}'

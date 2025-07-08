@@ -15,14 +15,19 @@ include("../section/navbar.php");
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
                 <label class="block text-base text-custom-black mb-2">Date de début</label>
-                <input type="date" id="monthly_interest_start_date" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <input type="date" id="monthly_interest_start_date"
+                       class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
             </div>
             <div>
                 <label class="block text-base text-custom-black mb-2">Date de fin</label>
-                <input type="date" id="monthly_interest_end_date" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <input type="date" id="monthly_interest_end_date"
+                       class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
             </div>
             <div class="flex items-end">
-                <button id="showMonthlyInterestsBtn" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Afficher les intérêts mensuels</button>
+                <button id="showMonthlyInterestsBtn"
+                        class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">
+                    Afficher les intérêts mensuels
+                </button>
             </div>
         </div>
 
@@ -47,33 +52,43 @@ include("../section/navbar.php");
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
                 <label class="block text-base text-custom-black mb-2">Date de début</label>
-                <input type="date" id="date_debut_pret" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <input type="date" id="date_debut_pret"
+                       class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
             </div>
             <div>
                 <label class="block text-base text-custom-black mb-2">Type de prêt</label>
-                <select id="id_type_pret" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <select id="id_type_pret"
+                        class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
                     <option value="">Tous</option>
                     <!-- Populated dynamically -->
                 </select>
             </div>
             <div>
                 <label class="block text-base text-custom-black mb-2">Type de remboursement</label>
-                <select id="id_type_remboursement" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <select id="id_type_remboursement"
+                        class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
                     <option value="">Tous</option>
                     <!-- Populated dynamically -->
                 </select>
             </div>
             <div>
                 <label class="block text-base text-custom-black mb-2">Statut</label>
-                <select id="id_status_contrat" class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
+                <select id="id_status_contrat"
+                        class="w-full border rounded-lg p-2 text-base focus:outline-none focus:ring-2 focus:ring-custom-purple-primary">
                     <option value="">Tous</option>
                     <!-- Populated dynamically -->
                 </select>
             </div>
         </div>
-        <div class="flex flex-row gap-8 mt-8">
-            <button id="buttonFilterLoad" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Appliquer les filtres</button>
-            =>> SI LOCAL STORAGE ID_CLIENT NOT NULL <a href="pret-form.php" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Faire un pret</a>
+        <div class="flex flex-row gap-8 mt-8  items-center">
+            <button id="buttonFilterLoad"
+                    class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">
+                Appliquer les filtres
+            </button>
+            <a href="pret-form.php"
+               class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Faire
+                un pret</a>
+            <a href="compare-simulations.php" class="underline text-custom-black">Comparer des simulations</a>
         </div>
     </div>
 
@@ -118,8 +133,13 @@ include("../section/navbar.php");
             <p class="text-base"><strong>Date statut:</strong> <span id="statusDate"></span></p>
         </div>
         <div class="mb-6">
-            <a id="downloadPdfLink" href="#" class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Télécharger PDF</a>
-            <button id="validateContractBtn" class="hidden bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-base">Valider</button>
+            <a id="downloadPdfLink" href="#"
+               class="bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Télécharger
+                PDF</a>
+            <button id="validateContractBtn"
+                    class="hidden bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-base">
+                Valider
+            </button>
         </div>
         <div>
             <h3 class="text-h4 font-semibold text-custom-black">Historique des remboursements</h3>
@@ -146,7 +166,7 @@ include("../section/navbar.php");
 include("../section/footer.php");
 ?>
 
-<script type="module"  src="../../api/pret.js">
+<script type="module" src="../../api/pret.js">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>

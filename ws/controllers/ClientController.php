@@ -51,4 +51,14 @@ class ClientController {
             Flight::halt(401, json_encode(['error' => 'Numéro client ou mot de passe incorrect']));
         }
     }
+    public static function filter() {
+        $model = new Client();
+        $data = Flight::request()->data->getData();
+        $nom = $data['nom'] ?? '';
+        $email = $data['email'] ?? '';
+        $numero = $data['numero'] ?? '';
+
+        $items = $model->filterClient($nom, $email, $numero);
+        Flight::json($items);
+    }
 }

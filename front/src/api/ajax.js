@@ -1,7 +1,7 @@
-// const apiBase = "http://localhost/tp-flightphp-crud/ws";
-// export const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
+export const apiBase = "http://localhost/finance/tp-flightphp-crud/ws";
 
-export const apiBase = "http://localhost/Tp%20Final%20S4/tp-flightphp-crud/ws";
+
+// export const apiBase = "http://localhost/tp-flightphp-crud/ws";
 
 // AJAX function (provided by user)
 export function ajax(method, url, data, callback, errorCallback) {
