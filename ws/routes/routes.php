@@ -20,6 +20,8 @@ require_once __DIR__ . '/../controllers/TypePartenaireController.php';
 require_once __DIR__ . '/../controllers/PartenaireController.php';
 require_once __DIR__ . '/../controllers/PretClientController.php';
 require_once __DIR__ . '/../controllers/EtablissementFinancierController.php';
+require_once __DIR__ . '/../controllers/SimulationPretController.php';
+
 
 Flight::route('GET /clients', ['ClientController', 'getAll']);
 Flight::route('GET /clients/@id', ['ClientController', 'getById']);
@@ -165,6 +167,12 @@ Flight::route('GET /etudiants/@id', ['EtudiantController', 'getById']);
 Flight::route('POST /etudiants', ['EtudiantController', 'create']);
 Flight::route('PUT /etudiants/@id', ['EtudiantController', 'update']);
 Flight::route('DELETE /etudiants/@id', ['EtudiantController', 'delete']);
+
+Flight::route('GET /simulation-pret', ['SimulationPretController', 'getAll']);
+Flight::route('GET /simulation-pret/@id', ['SimulationPretController', 'getById']);
+Flight::route('POST /simulation-pret', ['SimulationPretController', 'create']);
+Flight::route('PUT /simulation-pret/@id', ['SimulationPretController', 'update']);
+Flight::route('DELETE /simulation-pret/@id', ['SimulationPretController', 'delete']);
 
 // Additional routes
 Flight::route('GET /pret-clients/@id/details', ['PretClientController', 'getLoanDetails']);
