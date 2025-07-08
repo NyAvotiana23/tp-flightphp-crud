@@ -163,6 +163,7 @@ function filterLoans() {
     });
 }
 
+// Fetch and display loan details
 function showLoanDetails(loanId) {
     ajax('GET', `/pret-clients/${loanId}/details`, null, (data) => {
         document.getElementById('loanId').textContent = loanId;
@@ -210,6 +211,8 @@ window.onload = () => {
     loadFilterOptions();
     filterLoans();
     document.getElementById('showMonthlyInterestsBtn').addEventListener('click', loadMonthlyInterests);
+    document.getElementById('buttonFilterLoad').addEventListener('click', filterLoans);
+    document.getElementById('closerButton').addEventListener('click', closeLoanDetails);
 };
 
 // Navbar scroll effect

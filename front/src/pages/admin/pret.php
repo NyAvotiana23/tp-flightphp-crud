@@ -72,7 +72,7 @@ include("../section/navbar.php");
             </div>
         </div>
         <div class="flex flex-row gap-8 mt-8">
-            <button onclick="filterLoans()" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Appliquer les filtres</button>
+            <button id="buttonFilterLoad" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Appliquer les filtres</button>
             =>> SI LOCAL STORAGE ID_CLIENT NOT NULL <a href="pret-form.php" class="mt-4 bg-custom-purple-primary text-white px-4 py-2 rounded-lg hover:bg-custom-purple-secondary transition text-base">Faire un pret</a>
         </div>
     </div>
@@ -96,8 +96,8 @@ include("../section/navbar.php");
     </div>
 
     <!-- Floating Loan Details -->
-    <div id="loanDetails" class="hidden fixed top-0 right-0 h-full w-1/3 bg-white shadow-xl p-6 overflow-y-auto">
-        <button onclick="closeLoanDetails()" class="text-custom-black text-h5 font-semibold mb-4">Fermer</button>
+    <div id="loanDetails" class="hidden fixed top-0 right-0 h-full w-1/3 bg-white shadow-xl p-6 overflow-y-auto mt-1">
+        <button id="closerButton" class="text-custom-black text-h5 font-semibold mb-4">Fermer</button>
         <h2 class="text-h2 font-semibold text-custom-black mb-4">Détails du Prêt #<span id="loanId"></span></h2>
         <div class="mb-6">
             <h3 class="text-h4 font-semibold text-custom-black">Contrat</h3>
