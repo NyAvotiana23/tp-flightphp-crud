@@ -127,6 +127,8 @@ CREATE TABLE EF_contrats_prets (
     FOREIGN KEY (id_type_pret) REFERENCES EF_types_prets(id)
 );
 
+alter table EF_contrats_prets add column delay_remboursement_mois INT NOT NULL;
+
 CREATE TABLE EF_status_contrat (
     id INT PRIMARY KEY AUTO_INCREMENT,
     libelle VARCHAR(50) NOT NULL
