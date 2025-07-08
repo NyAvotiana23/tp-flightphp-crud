@@ -1,7 +1,3 @@
-DROP DATABASE EF;
-CREATE DATABASE EF;
-USE EF;
-
 DROP TABLE IF EXISTS EF_retraits_fonds;
 DROP TABLE IF EXISTS EF_fonds_investis_clients;
 DROP TABLE IF EXISTS EF_mouvements_partenaire;
