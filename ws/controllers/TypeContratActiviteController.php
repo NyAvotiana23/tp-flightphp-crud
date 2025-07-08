@@ -24,7 +24,8 @@ class TypeContratActiviteController {
 
     public static function update($id) {
         $model = new TypeContratActivite();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Type de contrat d\'activité modifié']);
     }

@@ -24,7 +24,8 @@ class ActiviteClientController {
 
     public static function update($id) {
         $model = new ActiviteClient();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Activité client modifié']);
     }

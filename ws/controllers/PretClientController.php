@@ -25,7 +25,8 @@ class PretClientController {
 
     public static function update($id) {
         $model = new PretClient();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Prêt client modifié']);
     }

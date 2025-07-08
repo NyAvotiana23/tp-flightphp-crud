@@ -24,7 +24,8 @@ class TypePartenaireController {
 
     public static function update($id) {
         $model = new TypePartenaire();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Mouvement produit modifié']);
     }

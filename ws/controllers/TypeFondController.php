@@ -24,7 +24,8 @@ class TypeFondController {
 
     public static function update($id) {
         $model = new TypeFond();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Type de fond modifié']);
     }

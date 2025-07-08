@@ -24,7 +24,8 @@ class PartenaireController {
 
     public static function update($id) {
         $model = new Partenaire();
-        $data = Flight::request()->data;
+        $data = Flight::request()->data->getData();
+
         $model->update($id, $data);
         Flight::json(['message' => 'Partenaire modifié']);
     }
