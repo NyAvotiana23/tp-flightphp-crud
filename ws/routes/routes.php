@@ -77,16 +77,12 @@ Flight::route('POST /types-prets', ['TypePretController', 'create']);
 Flight::route('PUT /types-prets/@id', ['TypePretController', 'update']);
 Flight::route('DELETE /types-prets/@id', ['TypePretController', 'delete']);
 
-<<<<<<< HEAD
 Flight::route('GET /status-contrats/@id', ['StatusContratController', 'getById']);
 Flight::route('GET /status-contrats', ['StatusContratController', 'getAll']);
 Flight::route('POST /status-contrats', ['StatusContratController', 'create']);
 Flight::route('PUT /status-contrats/@id', ['StatusContratController', 'update']);
 Flight::route('DELETE /status-contrats/@id', ['StatusContratController', 'delete']);
 
-=======
-// Contrats de prêt
->>>>>>> 833a13c53691335fd57409f5eaf1805b4e20d90b
 Flight::route('GET /contrats-prets', ['ContratPretController', 'getAll']);
 Flight::route('GET /contrats-prets/@id', ['ContratPretController', 'getById']);
 Flight::route('POST /contrats-prets', ['ContratPretController', 'create']);

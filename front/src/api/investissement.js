@@ -11,24 +11,7 @@ function fillTypePartenaireSelect(data) {
     data.forEach(type => {
         const option = document.createElement('option');
         option.value = type.id;
-        option.textContent = type.description;
-        option.style.color = '#000';
-        select.appendChild(option);
-    });
-}
-
-function fillPartenaireSelect(data) {
-    const select = document.getElementById('partenaire');
-
-    if (!Array.isArray(data)) return;
-
-    select.innerHTML = '<option value="">Tous les partenaires</option>';
-    select.style.color = '#000';
-
-    data.forEach(partenaire => {
-        const option = document.createElement('option');
-        option.value = partenaire.id;
-        option.textContent = partenaire.nom_partenaire;
+        option.textContent = type.description; 
         option.style.color = '#000';
         select.appendChild(option);
     });
@@ -41,19 +24,18 @@ function fillInvestissementsTable(data) {
         return;
     }
 
-    tbody.innerHTML = ''; 
+    tbody.innerHTML = ''; // Vider le tableau avant d'ajouter
 
     data.forEach(invest => {
         const tr = document.createElement('tr');
         tr.className = "border-b border-custom-purple-secondary hover:bg-custom-gray-purple";
 
         tr.innerHTML = `
-            <td class="p-3">${invest.nom_partenaire}</td>
-            <td class="p-3">${invest.type}</td>
-            <td class="p-3">${invest.nom}</td>
+            <td class="p-3">${invest.type_partenaire}</td>
+            <td class="p-3">${invest.nom_client}</td>
             <td class="p-3">${invest.montant_investi} €</td>
             <td class="p-3">${invest.date_investissement}</td>
-            <td class="p-3">${invest.taux_rendement_applique} %</td>
+            <td class="p-3">${invest.taux_annuel} %</td>
             <td class="p-3">${invest.retrait || '-'}</td>
         `;
 
